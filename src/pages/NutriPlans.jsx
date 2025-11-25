@@ -6,7 +6,12 @@ import "../styles/NutriPlans.css";
 import RecipeModal from "../components/RecipeModal";
 import CreateRecipeModalNutri from "../components/CreateRecipeModalNutri";
 
-const API_URL = import.meta.env.VITE_API_URL + "/plans";
+// ✅ BASE de la API, con fallback a localhost
+const BASE_API =
+  import.meta.env.VITE_API_URL || "http://localhost:4080/api";
+
+// ✅ URL de planes
+const API_URL = `${BASE_API}/plans`;
 
 export default function NutriPlans() {
   const { token } = useAuth();
@@ -19,17 +24,17 @@ export default function NutriPlans() {
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
 
-// estados existentes...
-const [approving, setApproving] = useState(false);
-const [approveNotes, setApproveNotes] = useState("");
+  // estados existentes...
+  const [approving, setApproving] = useState(false);
+  const [approveNotes, setApproveNotes] = useState("");
 
-// 👇 NUEVOS
-const [confirmOpen, setConfirmOpen] = useState(false);
-const [toast, setToast] = useState({
-  open: false,
-  message: "",
-  type: "success", // 'success' | 'error'
-});
+  // 👇 NUEVOS (confirm + toast)
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    type: "success", // 'success' | 'error'
+  });
 
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -94,7 +99,7 @@ const [toast, setToast] = useState({
     }
 
     return res;
-  }, [plans, statusFilter, search]);
+  }, [plans, statusFilter, search, plans.length]);
 
   function handleSelectPlan(plan) {
     setSelectedPlan(plan);
@@ -121,42 +126,42 @@ const [toast, setToast] = useState({
   }
 
   async function handleApprovePlan() {
-  if (!selectedPlan) return;
+    if (!selectedPlan) return;
 
-  try {
-    setApproving(true);
+    try {
+      setApproving(true);
 
-    await axios.patch(
-      `${API_URL}/${selectedPlan._id}/approve`,
-      { notes: approveNotes },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+      await axios.patch(
+        `${API_URL}/${selectedPlan._id}/approve`,
+        { notes: approveNotes },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-    await fetchPlans();
+      await fetchPlans();
 
-    // cerrar modal de confirmación
-    setConfirmOpen(false);
+      // cerrar modal de confirmación
+      setConfirmOpen(false);
 
-    // mostrar toast bonito
-    setToast({
-      open: true,
-      message: "Plan aprobado correctamente 🎉",
-      type: "success",
-    });
-  } catch (err) {
-    console.error("Error al aprobar plan:", err);
+      // mostrar toast bonito
+      setToast({
+        open: true,
+        message: "Plan aprobado correctamente 🎉",
+        type: "success",
+      });
+    } catch (err) {
+      console.error("Error al aprobar plan:", err);
 
-    setToast({
-      open: true,
-      message:
-        err?.response?.data?.msg ||
-        "Error al aprobar el plan. Revisa la consola.",
-      type: "error",
-    });
-  } finally {
-    setApproving(false);
+      setToast({
+        open: true,
+        message:
+          err?.response?.data?.msg ||
+          "Error al aprobar el plan. Revisa la consola.",
+        type: "error",
+      });
+    } finally {
+      setApproving(false);
+    }
   }
-}
 
   // 🔍 VER RECETA (solo lectura)
   async function handleOpenRecipe(meal) {
@@ -180,7 +185,7 @@ const [toast, setToast] = useState({
       try {
         setRecipeLoading(true);
         const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/recipes/${meal.recetaId}`,
+          `${BASE_API}/recipes/${meal.recetaId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -216,7 +221,7 @@ const [toast, setToast] = useState({
     try {
       setRecipeLoading(true);
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/recipes/${meal.recetaId}`,
+        `${BASE_API}/recipes/${meal.recetaId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
