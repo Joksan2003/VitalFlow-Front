@@ -10,7 +10,7 @@ import { useAuth } from "./contexts/AuthContext";
 
 // Pages usuario
 import Home from "./pages/Home";
-import PantallaInicio from "./pages/PantallaInicio";
+import PantallaInicio from "./pages/Pantallainicio";
 import Recetas from "./pages/Recetas";
 import MiPlan from "./pages/MiPlan";
 import Retos from "./pages/Retos";
