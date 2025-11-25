@@ -6,7 +6,7 @@ import "../styles/progreso.css";
 import { myActive, myCompleted } from "../services/challengeService";
 import { obtenerMiPlan } from "../services/planService";
 
-const API = "http://localhost:4080/api";
+const API = import.meta.env.VITE_API_URL + "/api" || "http://localhost:4080";
 
 // Día de hoy como índice de arreglo: 0 = domingo, 1 = lunes, ... 6 = sábado
 function getTodayArrayIndex(length) {
