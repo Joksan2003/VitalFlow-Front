@@ -1,7 +1,7 @@
 import Carousel from "../components/Carrusel";
 import Functionalities from "../components/Functionalities";
 import Impact from "../components/Impact";
-import "../styles/Home.css";
+import "../styles/home.css";
 
 export default function Home() {
   return (
