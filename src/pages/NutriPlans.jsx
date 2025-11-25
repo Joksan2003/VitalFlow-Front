@@ -180,7 +180,7 @@ const [toast, setToast] = useState({
       try {
         setRecipeLoading(true);
         const res = await axios.get(
-          `http://localhost:4080/api/recipes/${meal.recetaId}`,
+          `API_URL${meal.recetaId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -216,7 +216,7 @@ const [toast, setToast] = useState({
     try {
       setRecipeLoading(true);
       const res = await axios.get(
-        `http://localhost:4080/api/recipes/${meal.recetaId}`,
+        `API_URL${meal.recetaId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
