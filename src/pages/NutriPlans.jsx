@@ -6,14 +6,7 @@ import "../styles/NutriPlans.css";
 import RecipeModal from "../components/RecipeModal";
 import CreateRecipeModalNutri from "../components/CreateRecipeModalNutri";
 
-//Nuevos cambios 
-
-// Base genérica de la API
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4080/api";
-
-// Endpoints específicos
-const PLANS_URL = `${API_BASE}/plans`;
-const RECIPES_URL = `${API_BASE}/recipes`;
+const API_URL = import.meta.env.VITE_API_URL + "/plans";
 
 export default function NutriPlans() {
   const { token } = useAuth();
@@ -55,7 +48,7 @@ const [toast, setToast] = useState({
     try {
       setLoading(true);
       setError("");
-      const res = await axios.get(PLANS_URL, {
+      const res = await axios.get(API_URL, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const list = res.data?.plans || [];
@@ -134,7 +127,7 @@ const [toast, setToast] = useState({
     setApproving(true);
 
     await axios.patch(
-      `${PLANS_URL}/${selectedPlan._id}/approve`,
+      `${API_URL}/${selectedPlan._id}/approve`,
       { notes: approveNotes },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -187,7 +180,7 @@ const [toast, setToast] = useState({
       try {
         setRecipeLoading(true);
         const res = await axios.get(
-          `${RECIPES_URL}/${meal.recetaId}`,
+          `${import.meta.env.VITE_API_URL}/recipes/${meal.recetaId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -223,7 +216,7 @@ const [toast, setToast] = useState({
     try {
       setRecipeLoading(true);
       const res = await axios.get(
-        `${RECIPES_URL}/${meal.recetaId}`,
+        `${import.meta.env.VITE_API_URL}/recipes/${meal.recetaId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
