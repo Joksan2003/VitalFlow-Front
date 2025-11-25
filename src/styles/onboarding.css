@@ -1,0 +1,167 @@
+/* src/styles/onboarding.css */
+.onb-wrap {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 16px 56px;
+}
+
+.onb-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px 24px 32px;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12);
+}
+
+.onb-header h1 {
+  font-size: 1.9rem;
+  margin-bottom: 6px;
+}
+
+.onb-brand {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.onb-sub {
+  color: #64748b;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.onb-error {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+}
+
+.onb-grid {
+  display: grid;
+  gap: 14px 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.onb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.onb-field-full {
+  grid-column: 1 / -1;
+}
+
+.onb-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.onb-field input,
+.onb-field select {
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 8px 10px;
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.onb-field input:focus,
+.onb-field select:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+}
+
+/* ------ TAGS INPUTS ------ */
+
+.onb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 7px 8px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  cursor: text;
+}
+
+.onb-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.onb-tag-remove {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1;
+  color: #0f172a;
+}
+
+.onb-tag-input {
+  flex: 1;
+  min-width: 120px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.9rem;
+}
+
+.onb-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.onb-skip {
+  border-radius: 999px;
+  padding: 7px 16px;
+  border: 1px solid #cbd5f5;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.onb-primary {
+  border-radius: 999px;
+  padding: 8px 18px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.onb-primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .onb-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .onb-card {
+    padding: 20px 16px 24px;
+  }
+
+  .onb-header h1 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,321 @@
+/* Overlay */
+.crm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: flex-start;   /* antes: center */
+  justify-content: center;
+  padding-top: 130px;         /* para no chocar con el header */
+  z-index: 50;
+}
+
+/* Tarjeta principal */
+.crm-card {
+  background: #ffffff;
+  border-radius: 18px;
+  width: min(900px, 95vw);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+}
+
+/* Header */
+.crm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.crm-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.crm-close {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Formulario (scroll interno) */
+.crm-form {
+  padding: 1rem 1.5rem 1.25rem;
+  overflow-y: auto;
+}
+
+.crm-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+/* Grid superior */
+.crm-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.crm-col label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: #4b5563;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.crm-col input,
+.crm-col textarea {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+.crm-row-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+/* Campos largos */
+.crm-form > label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: #4b5563;
+  gap: 0.3rem;
+  margin-bottom: 0.85rem;
+}
+
+.crm-form textarea {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+/* Footer botones */
+.crm-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0.5rem;
+}
+
+.crm-btn {
+  background: #16a34a;
+  color: #ffffff;
+  border-radius: 999px;
+  border: none;
+  padding: 0.5rem 1.3rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.crm-btn:hover {
+  background: #15803d;
+}
+
+.crm-btn-outline {
+  background: #f9fafb;
+  color: #111827;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .crm-card {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .crm-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ------- Chips (dietas / categorías / etiquetas) ------- */
+.crm-chips-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.8rem;
+}
+
+.crm-chips-label {
+  font-size: 0.85rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.crm-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.4rem;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+.crm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #e5f6ef;
+  color: #166534;
+  font-size: 0.78rem;
+}
+
+.crm-chip-remove {
+  border: none;
+  background: transparent;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.crm-chip-input {
+  border: none;
+  min-width: 120px;
+  flex: 1;
+  font-size: 0.85rem;
+  background: transparent;
+  outline: none;
+}
+
+/* ------- Ingredientes ------- */
+.crm-section {
+  margin-top: 1rem;
+}
+
+.crm-section-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.4rem;
+}
+
+.crm-ingredients-row {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 2fr auto;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.crm-ingredients-row input {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.crm-btn-small {
+  border-radius: 999px;
+  border: none;
+  background: #16a34a;
+  color: white;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  align-self: center;
+}
+
+.crm-btn-small:hover {
+  background: #15803d;
+}
+
+.crm-ingredients-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.crm-ingredients-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.crm-ing-main {
+  color: #111827;
+}
+
+/* ------- Pasos / preparación ------- */
+.crm-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.crm-step-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.crm-step-number {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.crm-step-row input {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.crm-btn-outline-small {
+  background: #f9fafb;
+  color: #111827;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* Ajuste en móviles */
+@media (max-width: 768px) {
+  .crm-ingredients-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+  }
+
+  .crm-ingredients-row .crm-ing-name {
+    grid-column: 1 / -1;
+  }
+}

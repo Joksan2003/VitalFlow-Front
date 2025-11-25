@@ -1,0 +1,185 @@
+.impacto {
+  background: #fff;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(to right, #22c55e, #3b82f6, #8b5cf6, #f97316);
+  border-image-slice: 1;
+}
+
+.impacto-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.impacto-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.impacto-num {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Colores */
+.green {
+  color: #22c55e;
+}
+
+.blue {
+  color: #3b82f6;
+}
+
+.purple {
+  color: #8b5cf6;
+}
+
+.orange {
+  color: #f97316;
+}
+
+.impacto-item p {
+  font-size: 1.1rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .impacto-list {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+/* Container */
+.how-section {
+      border-image: linear-gradient(to right, #22c55e, #3b82f6, #8b5cf6, #f97316);
+      border-top: 4px solid transparent;
+  border-image: linear-gradient(to right, #22c55e, #3b82f6, #8b5cf6, #f97316);
+  border-image-slice: 1;
+  padding: 4.5rem 1.25rem;
+  text-align: center;
+  color: #111827;
+}
+
+/* Header */
+.how-header h1 {
+  font-size: 2.6rem;  
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  color: #0f1724;
+  line-height: 1.02;
+}
+
+.how-header p {
+  color: #4b5563;
+  font-size: 1.1rem;
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+}
+
+/* Steps layout */
+.how-steps {
+  display: flex;
+  gap: 2.75rem;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Each step card */
+.how-step {
+  flex: 1 1 300px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+/* Number circle */
+.step-circle {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 8px 18px rgba(16,24,40,0.06);
+}
+
+/* colored circles (soft pastel bg + colored number) */
+.circle-green {
+  background: rgba(34,197,94,0.12); /* pale green bg */
+  color: #16a34a;                   /* green number */
+}
+
+.circle-blue {
+  background: rgba(59,130,246,0.12);
+  color: #2563eb;
+}
+
+.circle-purple {
+  background: rgba(139,92,246,0.12);
+  color: #7c3aed;
+}
+
+/* Title and description */
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0.25rem 0 0.6rem;
+  color: #0f1724;
+}
+
+.step-desc {
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+/* Small screens: stack vertically */
+@media (max-width: 880px) {
+  .how-steps {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .step-circle {
+    width: 68px;
+    height: 68px;
+    font-size: 1.2rem;
+  }
+
+  .how-header h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Optional: subtle entrance animation */
+.how-step {
+  transform: translateY(0);
+  transition: transform 0.45s cubic-bezier(.2,.9,.2,1), box-shadow 0.3s;
+}
+.how-step:hover {
+  transform: translateY(-8px);
+}
+
+
+

@@ -1,0 +1,507 @@
+/* Container */
+.retos-container { max-width: 1300px; margin: 0 auto; padding: 28px; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #081226; }
+
+/* Header */
+.retos-header { margin-bottom: 18px; }
+.retos-title { font-size: 40px; margin: 0 0 6px; font-weight: 800; letter-spacing: -0.02em; }
+.retos-sub { color: #6b7280; margin: 0 0 22px; font-size: 15px; }
+
+/* Trophies */
+.trophies-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 18px; }
+.trophy-card { background: #fff; padding: 22px; border-radius: 12px; box-shadow: 0 6px 18px rgba(10,12,20,0.04); border: 1px solid #eef2f5; text-align: center; }
+.trophy-ico { font-size: 26px; margin-bottom: 8px; }
+.trophy-num { font-size: 26px; font-weight: 700; color: #0b1220; }
+.trophy-label { color: #64748b; font-size: 13px; margin-top: 6px; }
+
+/* Tabs */
+.tabs { display: inline-flex; gap: 10px; background: transparent; padding: 8px; margin: 12px 0 20px; }
+.tab {
+  background: #f3f4f6;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  color: #0b1220;
+  box-shadow: none;
+}
+.tab.active {
+  background: linear-gradient(180deg,#fff,#f7f8fb);
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(8,10,18,0.06), inset 0 0 0 3px rgba(12,14,20,0.04);
+}
+
+/* Contenedor de tarjetas (si no lo tienes) */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 18px;
+  
+}
+
+/* Tarjeta base */
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(10,15,25,0.04);
+  border: 1px solid rgba(15,20,30,0.06);
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+}
+
+/* Imagen superior */
+.card-img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder imagen */
+.card-img.placeholder {
+  background: linear-gradient(90deg,#f3f4f6,#ffffff);
+  height: 170px;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+  padding: 20px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título grande */
+.card-body h3 {
+  font-size: 1.35rem;
+  line-height: 1.1;
+  margin: 0 0 10px 0;
+  color: #0b1220; /* casi negro */
+  font-weight: 700;
+}
+
+/* Descripción tenue */
+.card-body .muted {
+  color: #6b7280;
+  font-size: 0.98rem;
+  margin-bottom: 14px;
+}
+
+/* Meta (fila) */
+.meta {
+  display: flex;
+  gap: 14px;
+  font-size: 0.95rem;
+  color: #475569;
+  margin-top: auto;
+  align-items: center;
+}
+
+/* Botones */
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  background: linear-gradient(90deg,#5acaa1,#0f341f); /* degradado */
+  color: rgb(255, 255, 255);
+  border: 0;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(38,50,98,0.12);
+  cursor: pointer;
+}
+
+.btn-outline {
+  border: 1px solid rgba(11, 32, 25, 0.08);
+  background-color: #50c7665f;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* --- Estilo para tarjetas "completed" (verde suave) --- */
+.card.completed {
+  background: #f1fbf4; /* verde muy suave */
+  border: 1px solid #cdebce;
+  box-shadow: none;
+}
+
+.card.completed .card-body {
+  padding: 26px;
+}
+
+.card.completed h3 {
+  font-size: 1.6rem;
+  color: #0b1b0c;
+}
+
+/* Badge / etiqueta (arriba derecha) */
+.card .status-badge {
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #0b1220;
+  border: 1px solid rgba(11,18,32,0.06);
+  box-shadow: 0 6px 14px rgba(11,18,32,0.06);
+}
+
+/* variante completado (verde) */
+.card.completed .status-badge {
+  background: linear-gradient(180deg,#eaffea,#e8fbe8);
+  color: #117a2b;
+  border: 1px solid rgba(17,122,43,0.12);
+  font-weight: 700;
+}
+
+/* Meta grande (fecha / participantes), alineado */
+.meta {
+  display:flex;
+  justify-content:flex-start;
+  gap:20px;
+  align-items:center;
+}
+
+/* estilo para el recuadro grande de puntos (botón tipo lámina) */
+.points-box {
+  margin-top: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(17,122,43,0.08);
+  padding: 18px;
+  background: rgba(255,255,255,0.6);
+  color: #117a2b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  gap:12px;
+}
+
+/* Responsivo */
+@media (max-width: 780px) {
+  .card-img { height: 140px; }
+  .card-body h3 { font-size: 1.25rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------
+   Estilos específicos: "Mis Retos"
+   Pegar al final de src/styles/retos.css
+   -------------------------- */
+
+/* Contenedor principal de "Mis retos" */
+.my-grid {
+  display: block;
+  margin-top: 18px;
+  gap: 18px;
+}
+
+/* Tarjeta grande de reto dentro de "Mis retos" */
+.my-challenge {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: 0 8px 28px rgba(8,12,20,0.04);
+  border: 1px solid rgba(10,14,20,0.06);
+  margin-bottom: 18px;
+}
+
+/* cabecera (titulo + badge) */
+.my-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Título grande */
+.my-top h4 {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 800;
+  color: #071226;
+  line-height: 1.05;
+}
+
+/* Estado (badge) */
+.status.in-progress {
+  background: linear-gradient(180deg,#dfe9ff,#cfe0ff);
+  color: #0836d0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(9,20,60,0.06);
+  border: 1px solid rgba(9,20,60,0.06);
+}
+
+/* descripción tenue */
+.my-challenge .muted {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 10px 0 18px;
+}
+
+/* Barra de progreso: contenedor */
+.my-challenge .progress {
+  font-weight: 700;
+  color: #0b1220;
+  margin: 6px 0 14px;
+}
+
+/* Barra visual grande (track) */
+.my-challenge .progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #eef2f6;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(12,14,20,0.03);
+  margin: 10px 0 12px;
+}
+
+/* Porcentaje relleno (dinámico: inline style width: XX%) */
+.my-challenge .progress-bar > .fill {
+  height: 100%;
+  background: linear-gradient(90deg,#0b1220,#0b1220); /* negro sólido */
+  border-radius: 999px;
+  transition: width 550ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Contenedor de los recuadros de cifras */
+.my-challenge .stat-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 18px;
+  align-items: stretch;
+}
+
+/* Recuadro verde: dias completados */
+.my-challenge .stat-box {
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  background: #f3fbf5;
+  border: 1px solid rgba(17,122,43,0.08);
+}
+
+/* Recuadro azul: dias restantes */
+.my-challenge .stat-box.alt {
+  background: #f2f7ff;
+  border: 1px solid rgba(30,80,200,0.06);
+}
+
+/* Numero grande dentro del recuadro */
+.my-challenge .stat-box .big {
+  font-size: 34px;
+  font-weight: 800;
+  color: #117a2b; /* verde */
+  margin-bottom: 6px;
+}
+
+/* color alternativo (azul) */
+.my-challenge .stat-box.alt .big {
+  color: #0b58d6;
+}
+
+/* etiqueta debajo del numero */
+.my-challenge .stat-box .label {
+  display:block;
+  color:#475569;
+  font-weight:600;
+  font-size:0.95rem;
+}
+
+/* Caja de puntos estilo "lámina" */
+.my-challenge .points-box {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 12px;
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(15,20,30,0.04);
+  color: #0b1220;
+  font-weight:700;
+}
+
+/* Botones grandes: principal oscuro y secundario outline */
+.my-challenge .actions {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-top:18px;
+}
+
+/* Botón principal grande (full width visual) */
+.my-challenge .btn {
+  flex: 1 1 0;
+  background: linear-gradient(90deg,#0a0610,#0b1220);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-align:center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(11,18,32,0.12);
+}
+
+/* Botón secundario (outline) */
+.my-challenge .btn-outline {
+  background: transparent;
+  border: 1px solid rgba(11,18,32,0.06);
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #0b1220;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* pequeño texto meta (racha, etc) */
+.my-challenge .meta.small {
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* estilo responsivo: en pantallas pequeñas apilar lo de stat-boxes */
+@media (max-width: 880px) {
+  .my-challenge { padding: 18px; }
+  .my-top h4 { font-size: 22px; }
+  .my-challenge .stat-boxes { grid-template-columns: 1fr; }
+  .trophies-grid { grid-template-columns: repeat(2,1fr); gap:12px; }
+  .trophy-num { font-size: 22px; }
+}
+
+/* efecto suave al marcar día (opcional) */
+.my-challenge .btn:active {
+  transform: translateY(1px);
+  transition: transform 120ms;
+}
+
+/* --------------------------
+   Modales pequeños de feedback en Retos
+   -------------------------- */
+
+.retos-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.retos-modal {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 20px 16px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+  border: 1px solid #e2e8f0;
+  animation: retos-modal-pop 0.2s ease-out;
+}
+
+.retos-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.retos-modal-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eff6ff;
+  font-size: 18px;
+}
+
+.retos-modal h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.retos-modal-message {
+  margin: 4px 0 12px;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.retos-modal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: linear-gradient(90deg, #0b1220, #111827);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.3);
+}
+
+.retos-modal-success .retos-modal-icon {
+  background: #dcfce7;
+}
+
+.retos-modal-success h3 {
+  color: #166534;
+}
+
+.retos-modal-error .retos-modal-icon {
+  background: #fee2e2;
+}
+
+.retos-modal-error h3 {
+  color: #b91c1c;
+}
+
+.retos-modal-info .retos-modal-icon {
+  background: #eff6ff;
+}
+
+.retos-modal-info h3 {
+  color: #1d4ed8;
+}
+
+@keyframes retos-modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

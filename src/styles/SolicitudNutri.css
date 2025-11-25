@@ -1,0 +1,247 @@
+/* SolicitudNutriologo.css */
+.solicitud-nutriologo {
+  max-width: 920px;
+  margin: 2.5rem auto;
+  padding: 2.2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+  color: #111827;
+}
+
+.solicitud-nutriologo h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.solicitud-nutriologo .lead {
+  color: #6b7280;
+  margin-bottom: 1.6rem;
+  font-size: 0.98rem;
+}
+
+.solicitud-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Secciones */
+.form-section {
+  padding: 1.2rem 1.1rem 1.3rem;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.section-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #111827;
+}
+
+/* Filas de 2 columnas en escritorio */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 0.65rem;
+}
+
+.form-row > label {
+  flex: 1 1 0;
+}
+
+/* Labels y campos */
+.solicitud-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  gap: 0.45rem;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.solicitud-form input[type="text"],
+.solicitud-form input[type="file"],
+.solicitud-form input[type="email"],
+.solicitud-form input[type="number"],
+.solicitud-form select,
+.solicitud-form textarea {
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.95rem;
+  outline: none;
+  background: white;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.solicitud-form input:focus,
+.solicitud-form select:focus,
+.solicitud-form textarea:focus {
+  border-color: #0ea5a4;
+  box-shadow: 0 0 0 1px rgba(14, 165, 164, 0.25);
+}
+
+.solicitud-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.help-text {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+/* Mensajes */
+.vf-error {
+  color: #dc2626;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.vf-success {
+  color: #059669;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Botones */
+.buttons {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.btn-primary {
+  background: #0ea5a4;
+  color: white;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #0f766e;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  color: #111827;
+  padding: 0.62rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.btn-ghost:hover {
+  background: #f3f4f6;
+}
+
+/* Bloque de estado */
+.request-status {
+  margin: 0.8rem 0 1.4rem 0;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.request-status h3 {
+  margin: 0 0 0.4rem 0;
+  font-size: 0.98rem;
+}
+
+.request-status .hint {
+  margin-top: 0.5rem;
+  color: #92400e;
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .solicitud-nutriologo {
+    margin: 1.5rem 1rem;
+    padding: 1.5rem;
+  }
+
+  .form-section {
+    padding: 0.9rem 0.8rem 1rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+/* --- TAG INPUT (Áreas de especialidad) --- */
+.tag-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0f172a;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.tag-pill-remove {
+  border: none;
+  background: transparent;
+  color: #0f172a;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.tag-pill-remove:hover {
+  color: #b91c1c;
+}
+
+.tag-input input[name="specialtyInput"] {
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.95rem;
+  outline: none;
+  background: white;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tag-input input[name="specialtyInput"]:focus {
+  border-color: #0ea5a4;
+  box-shadow: 0 0 0 1px rgba(14, 165, 164, 0.25);
+}

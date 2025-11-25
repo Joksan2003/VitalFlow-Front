@@ -1,0 +1,14 @@
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a3e4d7, #f9f9f9);
+}
+
+
+.section {
+  background: #fff;
+  margin-bottom: 18px;
+  border-radius: 12px;
+}

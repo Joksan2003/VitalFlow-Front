@@ -1,0 +1,626 @@
+/* src/styles/NutriPlans.css */
+
+.nutri-plans {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    sans-serif;
+  color: #111827;
+}
+
+.nutri-plans__header {
+  gap: 16px;
+  margin-bottom: 16px;
+    text-align: center;
+}
+
+.nutri-plans__title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+
+.nutri-plans__subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+/* toolbar */
+
+.nutri-plans__toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 160px;
+}
+
+.toolbar-group--grow {
+  flex: 1;
+}
+
+.toolbar-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.toolbar-input,
+.toolbar-select {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background-color: #f9fafb;
+}
+
+.toolbar-input:focus,
+.toolbar-select:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
+  background-color: #fff;
+}
+
+.toolbar-status {
+  min-width: 150px;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.toolbar-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #ecfdf3;
+  color: #166534;
+  font-weight: 500;
+}
+
+.toolbar-error {
+  color: #b91c1c;
+}
+
+/* layout */
+
+.nutri-plans__layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 20px;
+}
+
+/* left column: plan list */
+
+.nutri-plans__list {
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 14px 10px 14px 14px;
+  border: 1px solid #e5e7eb;
+  max-height: 560px;
+  overflow-y: auto;
+}
+
+.nutri-plans__empty {
+  font-size: 0.9rem;
+  color: #6b7280;
+  padding: 16px;
+}
+
+/* scrollbar suave */
+.nutri-plans__list::-webkit-scrollbar {
+  width: 6px;
+}
+.nutri-plans__list::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 999px;
+}
+
+/* plan cards */
+
+.plan-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 10px 10px 10px 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.08s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plan-card:hover {
+  border-color: #bbf7d0;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.plan-card--active {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3),
+    0 8px 20px rgba(22, 163, 74, 0.16);
+}
+
+.plan-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.plan-card__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f9fafb;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.plan-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.plan-card__user {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.plan-card__email {
+  font-size: 0.78rem;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plan-card__status {
+  font-size: 0.7rem;
+}
+
+.plan-card__meta {
+  margin-top: 4px;
+  font-size: 0.8rem;
+}
+
+.plan-card__line {
+  display: flex;
+  gap: 4px;
+  color: #4b5563;
+}
+
+.plan-card__line .label {
+  color: #9ca3af;
+}
+
+.plan-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  white-space: nowrap;
+}
+
+.chip--source {
+  background: #ecfdf3;
+  color: #166534;
+}
+
+.plan-card__date {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+/* pill states */
+
+.pill {
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pill--pending_review {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.pill--approved {
+  background: #ecfdf3;
+  color: #166534;
+}
+
+.pill--rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.pill--active {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* right column: detail */
+
+.nutri-plans__detail {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 18px 20px;
+  border: 1px solid #e5e7eb;
+  min-height: 320px;
+}
+
+.plan-detail__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 260px;
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+.plan-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.plan-detail__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.plan-detail__header h2 {
+  margin: 0 0 4px;
+  font-size: 1.2rem;
+}
+
+.highlight {
+  color: #16a34a;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.small {
+  font-size: 0.83rem;
+}
+
+.plan-detail__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.btn-primary {
+  border-radius: 999px;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #f9fafb;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
+  transition: transform 0.08s ease, box-shadow 0.08s ease,
+    filter 0.12s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* notes */
+
+.plan-detail__notes {
+  margin-top: 4px;
+}
+
+.notes-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.notes-textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  resize: vertical;
+  min-height: 70px;
+  outline: none;
+}
+
+.notes-textarea:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+/* days grid */
+
+.plan-detail__days-header {
+  margin-top: 6px;
+}
+
+.plan-detail__days-header h3 {
+  margin: 0 0 2px;
+  font-size: 1rem;
+}
+
+.plan-detail__days-grid {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.plan-day {
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plan-day__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plan-day__chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: #e0f2fe;
+  color: #075985;
+  font-weight: 600;
+}
+
+.plan-day__meals {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.plan-meal {
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 8px 9px;
+  border: 1px solid #e5e7eb;
+}
+
+.plan-meal__top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+.plan-meal__type {
+  font-weight: 600;
+}
+
+.plan-meal__kcal {
+  font-weight: 500;
+}
+
+.plan-meal__title {
+  margin-top: 3px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.plan-meal__actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* links */
+
+.link-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #15803d;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.link-button--ghost {
+  color: #6b7280;
+}
+
+/* responsive */
+
+@media (max-width: 900px) {
+  .nutri-plans__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .nutri-plans__detail {
+    order: -1;
+  }
+
+  .nutri-plans__list {
+    max-height: 320px;
+  }
+
+  .plan-detail__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .plan-detail__actions {
+    align-items: flex-start;
+  }
+}
+
+/* ===== Modal de confirmación (aprobación) ===== */
+
+.np-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.np-modal {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px 22px 18px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+  border: 1px solid #e5e7eb;
+}
+
+.np-modal h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.np-modal p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.np-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* botones dentro del modal */
+
+.np-btn {
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.np-btn--primary {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #f9fafb;
+  box-shadow: 0 4px 10px rgba(34, 197, 94, 0.35);
+}
+
+.np-btn--primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.np-btn--ghost {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* ===== Toast ===== */
+
+.np-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  min-width: 260px;
+  max-width: 340px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
+  color: #fff;
+  z-index: 70;
+}
+
+.np-toast--success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.np-toast--error {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.np-toast__close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-left: auto;
+}

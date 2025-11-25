@@ -1,0 +1,304 @@
+/* ===== MODAL UNIFICADO DE RECETAS ===== */
+
+body.vf-modal-open {
+  overflow: hidden;
+
+}
+
+.vf-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;   /* antes: center */
+  justify-content: center;
+  padding-top: 100px;         /* empuja el modal hacia abajo */
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 50;
+}
+
+.vf-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  max-width: 960px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35);
+  overflow: hidden;
+}
+
+/* Header */
+.vf-modal-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.vf-modal-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.vf-modal-sub {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.vf-modal-chips-row {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vf-modal-close {
+  margin-left: auto;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 999px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Chips del header */
+.chip.small {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.chip-meal {
+  background: #0f172a;
+  color: #f9fafb;
+}
+
+.chip-local {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.chip-status-ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.chip-status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.chip-soft {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+/* Cuerpo del modal */
+.vf-modal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Columna izquierda */
+.vf-modal-left {
+  border-right: 1px solid #e5e7eb;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.vf-modal-image-wrapper {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0f172a;
+  height: 210px;
+}
+
+.vf-modal-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vf-modal-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+}
+
+/* Metas rápidas */
+.vf-modal-meta-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+}
+
+.vf-meta-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+
+.vf-meta-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.vf-meta-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.vf-meta-value.kcal {
+  color: #16a34a;
+}
+
+/* Bloques de tags */
+.vf-modal-tags-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vf-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.vf-tags-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.vf-tags-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Meta final (autor + fecha) */
+.vf-modal-footer-meta {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Columna derecha */
+.vf-modal-right {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.vf-block h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.vf-muted {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* Ingredientes */
+.vf-ingredients-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.vf-ingredients-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 0;
+  border-bottom: 1px dashed #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.vf-ingredients-list li:last-child {
+  border-bottom: none;
+}
+
+.vf-ingredients-list .qty {
+  min-width: 90px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.vf-ingredients-list .name {
+  flex: 1;
+  color: #111827;
+}
+/* pasos */
+/* DESPUÉS: que crezca normal y que el scroll lo maneje la columna derecha */
+.vf-steps-block {
+  padding-right: 4px;
+}
+
+.vf-steps-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.vf-steps-list li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.vf-steps-html {
+  font-size: 0.9rem;
+  color: #111827;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .vf-modal {
+    max-width: 100%;
+    margin: 0 12px;
+    max-height: 92vh;
+  }
+
+  .vf-modal-body {
+    grid-template-columns: minmax(0,1fr);
+  }
+
+  .vf-modal-left {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .vf-modal-meta-cards {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+}

@@ -1,0 +1,755 @@
+/* =========================
+   VitalFlow — Plan (Mejorado)
+   ========================= */
+
+/* Variables de paleta */
+:root{
+  --bg: #f7f8fb;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --text: #091023;
+  --accent: #0f6ff6;
+  --accent-dark: #0b3a8a;
+  --ok: #16a34a;
+  --warn: #f59e0b;
+  --border: #e6e9ef;
+  --soft: #f4f6fa;
+  --shadow-sm: 0 6px 20px rgba(15,23,42,0.06);
+  --shadow-lg: 0 22px 60px rgba(15,23,42,0.10);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --glass: rgba(255,255,255,0.6);
+  --fw-semi: 600;
+  --fw-bold: 700;
+  --transition-fast: 180ms;
+  font-family: "Inter", "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+
+/* ===== Estilos generales ===== */
+
+main h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #0b132b;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+main p {
+  color: #6b7280;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* ===== Contenedor de tabs ===== */
+.flex {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* ===== Botones de Tabs ===== */
+.flex button {
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.flex button:hover {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+/* ===== Estado activo (cuando usas bg-black en clases tailwind) ===== */
+.flex button.bg-black {
+  background: linear-gradient(135deg, #111827, #1f2937);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.flex button.bg-black:hover {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  transform: scale(1.05);
+}
+
+/* ===== Botón secundario (bg-gray-100) ===== */
+.flex button.bg-gray-100 {
+  background: #f9fafb;
+  color: #111827;
+}
+
+.flex button.bg-gray-100:hover {
+  background: #e5e7eb;
+}
+
+/* Page wrapper (si usas main.max-w-5xl - mantiene compatibilidad) */
+main.max-w-5xl, .vf-plan-container {
+  background: transparent;
+  color: var(--text);
+  padding: 1.5rem 0;
+  min-height: 60vh;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Título principal */
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.02;
+  margin: 0 0 8px;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+p.lead {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Tabs (componente) */
+.flex.gap-2.mb-6 { gap: 12px; margin-bottom: 20px; display:flex; }
+button.tab {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-weight: var(--fw-semi);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+button.tab:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+button.tab.active {
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+  color: white;
+  border: none;
+  box-shadow: 0 8px 28px rgba(15,23,42,0.12);
+}
+
+/* GRID general para cards tipo catálogo (no tanto para el plan) */
+.vf-recipes-grid { margin-top: 10px; }
+.vf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Tarjeta receta — look moderno */
+.vf-recipe-card {
+  background: linear-gradient(180deg, var(--card), #fbfcff);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.vf-recipe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Imagen */
+.vf-recipe-thumb {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display:block;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+  background: linear-gradient(180deg,#f3f6fb,#ffffff);
+}
+
+/* Cuerpo */
+.vf-recipe-body {
+  padding: 18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  flex:1;
+}
+.vf-recipe-title {
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin: 0;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.vf-recipe-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  max-height: 3.2em;
+  overflow: hidden;
+  opacity: 0.95;
+}
+
+/* Meta row: kcal + badge */
+.vf-recipe-meta {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  font-size:0.95rem;
+  color:var(--muted);
+}
+.vf-badge {
+  padding:6px 12px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:0.82rem;
+  border:1px solid transparent;
+}
+.vf-badge--warn {
+  background: linear-gradient(180deg,#fff7ed,#fff2d6);
+  color: var(--warn);
+  border-color: rgba(245,158,11,0.12);
+}
+.vf-badge--ok {
+  background: linear-gradient(180deg,#f0fdf4,#ecfdf3);
+  color: var(--ok);
+  border-color: rgba(16,185,129,0.08);
+}
+
+/* Botones principales */
+.vf-recipe-actions {
+  margin-top: auto;
+}
+.vf-btn {
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor:pointer;
+  border: none;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(12,41,100,0.12);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.vf-btn:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(12,41,100,0.18); }
+
+/* Botón outline (cerrar/secondary) */
+.vf-btn-outline {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: transparent;
+}
+
+/* Estado pendiente (texto más descriptivo) */
+.vf-recipe-pending {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  align-items:flex-start;
+  color: var(--muted);
+  font-weight: 500;
+}
+.vf-recipe-pending small { color: var(--muted); font-size: 0.95rem; }
+
+/* Empty state card */
+.vf-plan-empty {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+.vf-plan-empty .vf-card {
+  text-align:center;
+  max-width:620px;
+}
+
+/* Modal overlay y modal (mejorado) */
+.vf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 16, 0.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 9999;
+  padding: 20px;
+}
+.vf-modal {
+  width: 100%;
+  max-width: 980px;
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(7,12,32,0.45);
+  animation: vf-modal-anim .14s ease;
+}
+@keyframes vf-modal-anim { from { transform: translateY(8px); opacity:0 } to { transform: none; opacity:1 } }
+
+.vf-modal-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.vf-modal-header h3 { margin:0; font-size:1.25rem; color:var(--text); }
+.vf-modal-close {
+  background:transparent;
+  border:none;
+  font-size:1.2rem;
+  cursor:pointer;
+  padding:6px 8px;
+}
+
+/* Modal body */
+.vf-modal-body {
+  padding: 18px;
+  max-height: 70vh;
+  overflow:auto;
+  display:flex;
+  gap: 18px;
+  flex-direction:column;
+}
+.vf-modal-image {
+  width:100%;
+  max-height: 320px;
+  object-fit:cover;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+
+/* Secciones internas */
+.vf-section { margin-top:12px; }
+.vf-section h4 { margin:0 0 8px 0; font-size:1rem; color:var(--text); }
+
+/* Footer */
+.vf-modal-footer {
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  padding: 14px 18px;
+  border-top:1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+}
+
+/* Recipe footer/meta row */
+.vf-recipe-footer {
+  margin-top:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:0.92rem;
+  color:var(--muted);
+}
+.vf-recipe-meta-row { display:flex; gap:10px; align-items:center; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .vf-grid { grid-template-columns: repeat(2, 1fr); }
+  .vf-recipe-thumb { height: 140px; }
+}
+@media (max-width: 720px) {
+  .vf-grid { grid-template-columns: 1fr; }
+  .vf-recipe-thumb { height: 180px; }
+  h1 { font-size: 1.75rem; }
+}
+
+/* utilidades */
+.text-center { text-align:center; }
+.mt-10 { margin-top: 2.5rem; }
+
+/* ========= Estilos específicos Plan por días ========= */
+
+.vf-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(12,15,20,0.04);
+  border: 1px solid rgba(220,224,230,0.8);
+}
+
+.vf-plan-empty { text-align:center; padding:40px; }
+
+.pf-pill {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(120,128,140,0.15);
+  background: #f0f0f3;
+  color: #111827;
+  cursor: pointer;
+  font-weight: 600;
+}
+.pf-pill.active {
+  background: linear-gradient(180deg,#071226,#14243e);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(8,10,20,0.12);
+}
+
+/* days grid */
+.pf-days {
+  display: grid;
+  gap: 18px;
+}
+.pf-day-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(220,224,230,0.9);
+  box-shadow: 0 8px 20px rgba(15,23,42,0.03);
+}
+.pf-day-title {
+  margin: 0 0 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+/* ==== NUEVO: meals como CARDS tipo catálogo ==== */
+.pf-meals-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.pf-meal-card {
+  background: linear-gradient(180deg, #ffffff, #f9fafb);
+  border-radius: 16px;
+  border: 1px solid rgba(229,231,235,0.9);
+  box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.pf-meal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(15,23,42,0.13);
+}
+
+/* imagen / thumb */
+.pf-meal-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #e5ecff, #f9fafb);
+  overflow: hidden;
+}
+.pf-meal-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pf-meal-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#9ca3af;
+  font-size:0.9rem;
+}
+.pf-meal-chip {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.9);
+  color:#fff;
+  font-size:0.8rem;
+  font-weight:600;
+}
+
+/* contenido */
+.pf-meal-content {
+  padding: 14px 16px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.pf-meal-title {
+  margin:0;
+  font-size:1.02rem;
+  font-weight:700;
+  color:#0f172a;
+}
+.pf-meal-desc {
+  margin:0;
+  font-size:0.9rem;
+  color:#6b7280;
+  line-height:1.4;
+  max-height:3.2em;
+  overflow:hidden;
+}
+
+/* meta y badges */
+.pf-meal-meta {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:0.9rem;
+}
+.pf-meal-kcal {
+  font-weight:700;
+  color:#16a34a;
+}
+
+.pf-status-badge {
+  padding: 4px 10px;
+  border-radius:999px;
+  font-size:0.75rem;
+  font-weight:700;
+  border:1px solid transparent;
+}
+.pf-status-badge.ok {
+  background:#eaf7ed;
+  color:#166534;
+  border-color:rgba(22,101,52,0.18);
+}
+.pf-status-badge.warn {
+  background:#fff7ed;
+  color:#b45309;
+  border-color:rgba(180,83,9,0.18);
+}
+
+/* botón ver receta dentro de la card */
+.pf-meal-btn {
+  margin-top: 6px;
+  align-self:flex-start;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border:none;
+  font-size:0.85rem;
+  font-weight:600;
+  background: linear-gradient(90deg,#0b2b5b,#153b71);
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 8px 18px rgba(15,23,42,0.18);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.pf-meal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15,23,42,0.25);
+}
+
+/* filter row */
+.pf-filter-row {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:12px;
+}
+.pf-filter-row label {
+  font-weight:600;
+  margin-right:6px;
+  color:#35403a;
+}
+
+/* suggestions */
+.vf-grid-suggestions {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.suggestion {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  width:280px;
+  padding:10px;
+  background:#fff;
+  border-radius:10px;
+  border:1px solid rgba(230,233,238,0.9);
+  cursor:pointer;
+}
+.suggestion img {
+  width:84px;
+  height:64px;
+  object-fit:cover;
+  border-radius:8px;
+}
+.suggestion-body .suggestion-title { font-weight:700; }
+
+/* small helpers */
+.vf-muted { color:#6b7280; }
+.small { font-size:0.9rem; color:#6b7280; }
+
+/* === Grid layout for favorites section === */
+.pf-favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* máximo 3 columnas */
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* Tablet / pantallas medianas: 2 columnas */
+@media (max-width: 1100px) {
+  .pf-favorites-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Móvil: 1 columna */
+@media (max-width: 720px) {
+  .pf-favorites-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Encabezado del plan actual (bienvenida + meta) ===== */
+
+.pf-plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.pf-plan-title h2 {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.pf-plan-title p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 460px;
+}
+
+.pf-plan-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+/* Chip de fuente */
+.pf-plan-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #eff6ff, #e0f2fe);
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  font-size: 0.8rem;
+}
+
+.pf-plan-chip-label {
+  font-weight: 600;
+  color: #1d4ed8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pf-plan-chip-value {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+/* Pill de estado */
+.pf-status-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.pf-status-pill.ok {
+  background: #ecfdf3;
+  color: #166534;
+  border-color: rgba(22, 101, 52, 0.3);
+}
+
+.pf-status-pill.pending {
+  background: #fffbeb;
+  color: #92400e;
+  border-color: rgba(180, 83, 9, 0.3);
+}
+
+.pf-status-pill.other {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: rgba(156, 163, 175, 0.5);
+}
+
+/* ===== Fila de filtros: select + buscador ===== */
+
+.pf-filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.pf-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pf-filter-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.pf-filter-group select {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #f9fafb;
+  font-size: 0.9rem;
+}
+
+/* buscador */
+.pf-filter-search {
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.pf-filter-search input {
+  width: 100%;
+  max-width: 500px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 2px solid var(--border);
+  background: #f9fafb;
+  font-size: 0.9rem;
+  outline: none;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.pf-filter-search input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+/* Responsive para encabezado */
+@media (max-width: 768px) {
+  .pf-plan-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pf-plan-meta {
+    align-items: flex-start;
+  }
+}
