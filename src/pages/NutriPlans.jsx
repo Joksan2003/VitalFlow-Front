@@ -6,12 +6,9 @@ import "../styles/NutriPlans.css";
 import RecipeModal from "../components/RecipeModal";
 import CreateRecipeModalNutri from "../components/CreateRecipeModalNutri";
 
-// ✅ BASE de la API, con fallback a localhost
-const BASE_API =
-  import.meta.env.VITE_API_URL || "http://localhost:4080/api";
+//const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4080";
 
-// ✅ URL de planes
-const API_URL = `${BASE_API}/plans`;
+const API_URL = "https://vitalflow-backen-api.onrender.com/api/plans";
 
 export default function NutriPlans() {
   const { token } = useAuth();
@@ -24,17 +21,17 @@ export default function NutriPlans() {
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
 
-  // estados existentes...
-  const [approving, setApproving] = useState(false);
-  const [approveNotes, setApproveNotes] = useState("");
+// estados existentes...
+const [approving, setApproving] = useState(false);
+const [approveNotes, setApproveNotes] = useState("");
 
-  // 👇 NUEVOS (confirm + toast)
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [toast, setToast] = useState({
-    open: false,
-    message: "",
-    type: "success", // 'success' | 'error'
-  });
+// 👇 NUEVOS
+const [confirmOpen, setConfirmOpen] = useState(false);
+const [toast, setToast] = useState({
+  open: false,
+  message: "",
+  type: "success", // 'success' | 'error'
+});
 
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -99,7 +96,7 @@ export default function NutriPlans() {
     }
 
     return res;
-  }, [plans, statusFilter, search, plans.length]);
+  }, [plans, statusFilter, search]);
 
   function handleSelectPlan(plan) {
     setSelectedPlan(plan);
@@ -126,42 +123,42 @@ export default function NutriPlans() {
   }
 
   async function handleApprovePlan() {
-    if (!selectedPlan) return;
+  if (!selectedPlan) return;
 
-    try {
-      setApproving(true);
+  try {
+    setApproving(true);
 
-      await axios.patch(
-        `${API_URL}/${selectedPlan._id}/approve`,
-        { notes: approveNotes },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    await axios.patch(
+      `${API_URL}/${selectedPlan._id}/approve`,
+      { notes: approveNotes },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
-      await fetchPlans();
+    await fetchPlans();
 
-      // cerrar modal de confirmación
-      setConfirmOpen(false);
+    // cerrar modal de confirmación
+    setConfirmOpen(false);
 
-      // mostrar toast bonito
-      setToast({
-        open: true,
-        message: "Plan aprobado correctamente 🎉",
-        type: "success",
-      });
-    } catch (err) {
-      console.error("Error al aprobar plan:", err);
+    // mostrar toast bonito
+    setToast({
+      open: true,
+      message: "Plan aprobado correctamente 🎉",
+      type: "success",
+    });
+  } catch (err) {
+    console.error("Error al aprobar plan:", err);
 
-      setToast({
-        open: true,
-        message:
-          err?.response?.data?.msg ||
-          "Error al aprobar el plan. Revisa la consola.",
-        type: "error",
-      });
-    } finally {
-      setApproving(false);
-    }
+    setToast({
+      open: true,
+      message:
+        err?.response?.data?.msg ||
+        "Error al aprobar el plan. Revisa la consola.",
+      type: "error",
+    });
+  } finally {
+    setApproving(false);
   }
+}
 
   // 🔍 VER RECETA (solo lectura)
   async function handleOpenRecipe(meal) {
@@ -185,7 +182,7 @@ export default function NutriPlans() {
       try {
         setRecipeLoading(true);
         const res = await axios.get(
-          `${BASE_API}/recipes/${meal.recetaId}`,
+          `https://vitalflow-backen-api.onrender.com/api/recipes/${meal.recetaId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -221,7 +218,7 @@ export default function NutriPlans() {
     try {
       setRecipeLoading(true);
       const res = await axios.get(
-        `${BASE_API}/recipes/${meal.recetaId}`,
+        `https://vitalflow-backen-api.onrender.com/api/recipes/${meal.recetaId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
