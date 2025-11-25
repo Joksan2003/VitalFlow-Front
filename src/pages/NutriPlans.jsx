@@ -6,7 +6,7 @@ import "../styles/NutriPlans.css";
 import RecipeModal from "../components/RecipeModal";
 import CreateRecipeModalNutri from "../components/CreateRecipeModalNutri";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4080/api/plans";
+const API_URL = import.meta.env.VITE_API_URL ||"http://localhost:4080/api/plans";
 
 export default function NutriPlans() {
   const { token } = useAuth();
@@ -180,7 +180,7 @@ const [toast, setToast] = useState({
       try {
         setRecipeLoading(true);
         const res = await axios.get(
-          `API_URL${meal.recetaId}`,
+          `${API_URL}/${meal.recetaId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -216,7 +216,7 @@ const [toast, setToast] = useState({
     try {
       setRecipeLoading(true);
       const res = await axios.get(
-        `API_URL${meal.recetaId}`,
+        `${API_URL}/${meal.recetaId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
