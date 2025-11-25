@@ -277,7 +277,6 @@ export default function AdminSolicitudes() {
             className="admin-sol-modal"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* ... resto igual ... */}
           </div>
         </div>
       )}
