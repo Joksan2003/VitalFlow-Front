@@ -5,7 +5,7 @@
   overflow: hidden;
   border-radius: 12px;
   background: #0e1116;
-  margin-top: clamp(68px, 12vh, 120px);
+  margin-top: clamp(18px, 8vh, 70px);
 }
 
 .vf-carousel__track {
@@ -103,7 +103,7 @@
   .vf-carousel { 
     height: clamp(380px, 78vh, 560px); 
     border-radius: 10px;
-    margin-top: clamp(70px, 13vh, 130px);
+    margin-top: clamp(20px, 9vh, 80px);
   }
 
   .vf-slide__caption {
