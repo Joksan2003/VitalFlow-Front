@@ -1,3 +1,5 @@
+/* src/styles/header.css */
+
 .vf-header {
   display: flex;
   align-items: center;
@@ -107,20 +109,17 @@
   }
 
   .vf-nav {
-    position: fixed;
+    position: absolute;        /* justo debajo del header */
     top: 60px;
     left: 0;
     right: 0;
     background: rgba(7, 10, 11, 0.98);
-    height: calc(100vh - 60px);
-    display: flex;
-    justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
     transition: all 0.25s ease;
-    padding-top: 30px;
-    z-index: 1500;
+    padding: 12px 0 16px;
+    z-index: 998;
   }
 
   .vf-nav.open {
@@ -131,7 +130,7 @@
 
   .vf-nav ul {
     flex-direction: column;
-    gap: 22px;
+    gap: 12px;
     align-items: center;
   }
 
@@ -142,7 +141,7 @@
   .vf-nav__mobile-login {
     display: block;
     width: 100%;
-    padding: 12px 20px 0;
+    padding: 10px 20px 0;
     box-sizing: border-box;
   }
 
@@ -151,7 +150,8 @@
   }
 
   .vf-header__right {
-    position: relative;
-    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 }

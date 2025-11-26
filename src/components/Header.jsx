@@ -1,26 +1,25 @@
 // src/components/header.jsx
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../styles/header.css";
 
 export default function Header({ onOpenLogin }) {
   const [open, setOpen] = useState(false);
-
-  // Referencia a TODO el header (logo + nav + burger)
   const headerRef = useRef(null);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!open) return; // si ya está cerrado, no hacemos nada
-
-      const headerEl = headerRef.current;
-      // Si hay header y el click NO fue dentro del header, cerramos menú
-      if (headerEl && !headerEl.contains(e.target)) {
+    function handleClickOutside(event) {
+      if (open && headerRef.current && !headerRef.current.contains(event.target)) {
         setOpen(false);
       }
-    };
+    }
 
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
   }, [open]);
 
   const handleToggle = () => setOpen((s) => !s);
@@ -32,6 +31,7 @@ export default function Header({ onOpenLogin }) {
   };
 
   const handleOpenLogin = () => {
+    console.log("Abrir modal login");
     if (typeof onOpenLogin === "function") {
       onOpenLogin();
     } else {
@@ -42,7 +42,7 @@ export default function Header({ onOpenLogin }) {
   };
 
   return (
-    <header ref={headerRef} className="vf-header">
+    <header className="vf-header" ref={headerRef}>
       <div className="vf-header__left">VitalFlow</div>
 
       <nav className={`vf-nav ${open ? "open" : ""}`}>
