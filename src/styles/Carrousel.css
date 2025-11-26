@@ -5,6 +5,7 @@
   overflow: hidden;
   border-radius: 12px;
   background: #0e1116;
+  margin-top: clamp(68px, 12vh, 120px);
 }
 
 .vf-carousel__track {
@@ -24,7 +25,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(.72);
+  filter: none;
   display: block;
 }
 
@@ -32,7 +33,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.68) 70%);
+  background: linear-gradient(180deg, rgba(0,0,0,.06) 0%, rgba(0,0,0,.32) 70%);
   pointer-events: none;
 }
 
@@ -57,7 +58,7 @@
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   line-height: 1.1;
   letter-spacing: .3px;
-  color: #f5f7ff;
+  color: #ffffff;
   text-shadow: 0 10px 25px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.35);
 }
 
@@ -65,7 +66,7 @@
   margin: 0;
   font-size: clamp(1rem, 3vw, 1.3rem);
   line-height: 1.35;
-  color: #e4e9f5;
+  color: #f8fbff;
   opacity: .94;
   text-shadow: 0 6px 18px rgba(0,0,0,.35), 0 1px 4px rgba(0,0,0,.35);
 }
@@ -102,6 +103,7 @@
   .vf-carousel { 
     height: clamp(380px, 78vh, 560px); 
     border-radius: 10px;
+    margin-top: clamp(70px, 13vh, 130px);
   }
 
   .vf-slide__caption {
@@ -117,7 +119,7 @@
   }
 
   .vf-slide::after {
-    background: linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.75) 82%);
+    background: linear-gradient(180deg, rgba(0,0,0,.05) 0%, rgba(0,0,0,.28) 82%);
   }
 
   .vf-slide__caption {
