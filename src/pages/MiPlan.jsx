@@ -15,8 +15,8 @@ export default function PlanAlimenticio() {
   const [search, setSearch] = useState(""); 
 
   const [activeTab, setActiveTab] = useState("generar"); // "generar" | "actual"
-  const [loading, setLoading] = useState(true);
-  const [plan, setPlan] = useState(null);
+  const [loadingInitial, setLoadingInitial] = useState(true); // carga inicial del plan
+  const [generating, setGenerating] = useState(false);        // cuando doy clic en "Generar plan"
 
   // mapa id -> receta normalizada (ingredients, instructions, etc.)
   const [recipeMap, setRecipeMap] = useState({});
@@ -205,7 +205,7 @@ export default function PlanAlimenticio() {
    */
   async function fetchPlan() {
     try {
-      setLoading(true);
+      setLoadingInitial(true);
       const res = await obtenerMiPlan(token); // { ok, data: [...] o {plans: [...]}
       const plans = res.data || res.plans || [];
 
@@ -300,13 +300,13 @@ export default function PlanAlimenticio() {
       setPlan(null);
       setRecipeMap({});
     } finally {
-      setLoading(false);
+      setLoadingInitial(false);
     }
   }
 
   async function handleGeneratePlan() {
     try {
-      setLoading(true);
+      setGenerating(true);
       await generarPlan(token);
       await fetchPlan();
     } catch (err) {
@@ -316,10 +316,9 @@ export default function PlanAlimenticio() {
         err?.response?.data?.msg ||
         "Ocurrió un error al generar tu plan. Inténtalo más tarde.";
 
-      // 🔹 En vez de alert, guardamos el mensaje para mostrar el modal
-      setPlanErrorMsg(msg);
+      setPlanErrorMsg(msg); // mostramos modal bonito
     } finally {
-      setLoading(false);
+      setGenerating(false);
     }
   }
 
@@ -403,8 +402,25 @@ export default function PlanAlimenticio() {
     );
   }
 
-  if (loading) {
-    return <p className="text-center mt-10">Cargando tu plan con IA esto puede tardar algunos segundos...</p>;
+  if (loadingInitial) {
+    return (
+      <main className="pf-loading-wrapper">
+        <div className="pf-loading-card">
+          <div className="pf-loading-icon">
+            <div className="pf-pan" />
+            <div className="pf-steam">
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
+          <h2>Estamos cocinando tu plan 🍳</h2>
+          <p>
+            Esto puede tardar algunos segundos mientras la IA elige las mejores recetas para ti...
+          </p>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -450,8 +466,12 @@ export default function PlanAlimenticio() {
             nutriólogo.
           </p>
           <div className="mt-4">
-            <button className="vf-btn" onClick={handleGeneratePlan}>
-              Generar plan con IA
+            <button
+              className={`vf-btn ${generating ? "vf-btn-loading" : ""}`}
+              onClick={handleGeneratePlan}
+              disabled={generating}
+            >
+              {generating ? "Generando tu plan..." : "Generar plan con IA"}
             </button>
           </div>
         </div>

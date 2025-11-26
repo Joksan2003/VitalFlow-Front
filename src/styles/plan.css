@@ -757,3 +757,144 @@ button.tab.active {
 .vf-modal.vf-modal-sm {
   max-width: 420px;
 }
+
+/* Loader de "cocinando tu plan" */
+
+.pf-loading-wrapper {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  padding: 2rem 1rem;
+}
+
+.pf-loading-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px 28px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+}
+
+.pf-loading-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.pf-loading-card p {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+/* Icono tipo sartén + vapor */
+.pf-loading-icon {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  margin: 0 auto 20px auto;
+}
+
+.pf-pan {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 22px;
+  background: #111827;
+  border-radius: 999px 999px 18px 18px;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.4);
+  animation: pan-bounce 1.4s infinite ease-in-out;
+}
+
+.pf-pan::after {
+  content: "";
+  position: absolute;
+  right: -24px;
+  top: 6px;
+  width: 24px;
+  height: 7px;
+  border-radius: 999px;
+  background: #111827;
+}
+
+.pf-steam {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.pf-steam span {
+  width: 6px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(to top, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.8));
+  animation: steam-rise 1.6s infinite ease-in-out;
+  opacity: 0;
+}
+
+.pf-steam span:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.pf-steam span:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes pan-bounce {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -6px);
+  }
+}
+
+@keyframes steam-rise {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+}
+
+/* Botón en modo loading */
+.vf-btn.vf-btn-loading {
+  position: relative;
+  color: #f9fafb;
+  cursor: wait;
+}
+
+.vf-btn.vf-btn-loading::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #ffffff;
+  animation: spin-btn 0.8s linear infinite;
+}
+
+@keyframes spin-btn {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
