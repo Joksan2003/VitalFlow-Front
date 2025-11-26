@@ -399,8 +399,8 @@ export default function PlanAlimenticio() {
     );
   }
 
-  // LOADER INICIAL
-  if (loadingInitial) {
+  // LOADER INICIAL O DURANTE GENERACIÓN
+  if (loadingInitial || generating) {
     return (
       <main className="pf-loading-wrapper">
         <div className="pf-loading-card">
