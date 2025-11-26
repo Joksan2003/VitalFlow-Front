@@ -17,7 +17,7 @@
 .vf-header__left {
   font-weight: 800;
   color: #00c896;
-  font-size: 4rem;
+  font-size: 2rem;
 }
 
 /* Nav (desktop) */
@@ -39,7 +39,7 @@
   color: #fff;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .vf-nav a:hover {
@@ -56,7 +56,7 @@
   font-weight: 500;
   cursor: pointer;
   margin-right: 12px;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 /* Burger (oculto en desktop) */
@@ -98,70 +98,59 @@
   .vf-header {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
     height: 60px;
     padding: 10px 18px;
-    z-index: 1000;
   }
 
   .vf-header__left {
     font-size: 1.6rem;
   }
 
-  /* El nav se vuelve overlay */
   .vf-nav {
     position: fixed;
-    top: 60px;        /* justo debajo del header */
+    top: 60px;
     left: 0;
     right: 0;
     background: rgba(7, 10, 11, 0.98);
-    transform: translateY(-16px);
     opacity: 0;
     pointer-events: none;
-    transition: all 0.22s ease;
-    padding: 12px 0 18px;
-    justify-content: center;
-    z-index: 999;
+    transform: translateY(-20px);
+    transition: all 0.25s ease;
+    padding: 18px 0;
+    z-index: 998;
   }
 
   .vf-nav.open {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
     pointer-events: auto;
   }
 
   .vf-nav ul {
+    flex-direction: vertical;
     flex-direction: column;
     gap: 12px;
     align-items: center;
   }
 
-  .vf-nav a {
-    font-size: 1.1rem;
-  }
-
-  /* login de la derecha se oculta */
   .vf-login {
     display: none;
   }
 
-  /* login dentro del menú se muestra */
   .vf-nav__mobile-login {
     display: block;
     width: 100%;
-    padding: 4px 20px 0;
+    padding: 12px 20px 0;
     box-sizing: border-box;
   }
 
-  /* burger visible */
   .vf-burger {
-    display: inline-flex;
+    display: flex;
   }
 
   .vf-header__right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
 }
