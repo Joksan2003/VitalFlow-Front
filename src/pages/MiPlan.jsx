@@ -414,7 +414,7 @@ export default function PlanAlimenticio() {
           </div>
           <h2>Estamos cocinando tu plan 🍳</h2>
           <p>
-            Esto puede tardar algunos segundos mientras la IA elige las mejores
+            Esto puede tardar algunos segundos mientras nuestra IA elige las mejores
             recetas para ti...
           </p>
         </div>
