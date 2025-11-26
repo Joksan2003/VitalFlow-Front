@@ -12,11 +12,14 @@ import RecipeCard from "../components/RecipeCard";
 
 export default function PlanAlimenticio() {
   const { token } = useAuth();
-  const [search, setSearch] = useState(""); 
 
-  const [activeTab, setActiveTab] = useState("generar"); // "generar" | "actual"
+  const [search, setSearch] = useState("");
+
+  const [activeTab, setActiveTab] = useState("generar"); // "generar" | "actual" | "favoritos"
   const [loadingInitial, setLoadingInitial] = useState(true); // carga inicial del plan
-  const [generating, setGenerating] = useState(false);        // cuando doy clic en "Generar plan"
+  const [generating, setGenerating] = useState(false); // cuando doy clic en "Generar plan"
+
+  const [plan, setPlan] = useState(null); // <<< FALTABA ESTO
 
   // mapa id -> receta normalizada (ingredients, instructions, etc.)
   const [recipeMap, setRecipeMap] = useState({});
@@ -55,7 +58,7 @@ export default function PlanAlimenticio() {
     } else {
       setPlan(null);
       setRecipeMap({});
-      setLoading(false);
+      setLoadingInitial(false); // <<< ANTES era setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
@@ -66,38 +69,38 @@ export default function PlanAlimenticio() {
   }, []);
 
   useEffect(() => {
-  // Cargar al recipeMap las recetas favoritas que NO vienen del plan
-  async function hydrateFavoriteRecipes() {
-    if (!favoriteIds || favoriteIds.length === 0) return;
+    // Cargar al recipeMap las recetas favoritas que NO vienen del plan
+    async function hydrateFavoriteRecipes() {
+      if (!favoriteIds || favoriteIds.length === 0) return;
 
-    // ids que ya tenemos en recipeMap
-    const existingIds = new Set(Object.keys(recipeMap));
+      // ids que ya tenemos en recipeMap
+      const existingIds = new Set(Object.keys(recipeMap));
 
-    // ids favoritos que faltan en el mapa
-    const missing = favoriteIds.filter((id) => !existingIds.has(String(id)));
-    if (missing.length === 0) return;
+      // ids favoritos que faltan en el mapa
+      const missing = favoriteIds.filter((id) => !existingIds.has(String(id)));
+      if (missing.length === 0) return;
 
-    try {
-      const bulk = await obtenerRecetasBulk(missing, token);
-      const recs = bulk.data || bulk.recipes || [];
+      try {
+        const bulk = await obtenerRecetasBulk(missing, token);
+        const recs = bulk.data || bulk.recipes || [];
 
-      if (!Array.isArray(recs) || recs.length === 0) return;
+        if (!Array.isArray(recs) || recs.length === 0) return;
 
-      const newMap = { ...recipeMap };
-      recs.forEach((r) => {
-        if (!r || !r._id) return;
-        const normalized = normalizeRecipe(r);
-        newMap[String(r._id)] = normalized;
-      });
+        const newMap = { ...recipeMap };
+        recs.forEach((r) => {
+          if (!r || !r._id) return;
+          const normalized = normalizeRecipe(r);
+          newMap[String(r._id)] = normalized;
+        });
 
-      setRecipeMap(newMap);
-    } catch (err) {
-      console.warn("Error hidratando favoritos externos:", err);
+        setRecipeMap(newMap);
+      } catch (err) {
+        console.warn("Error hidratando favoritos externos:", err);
+      }
     }
-  }
 
-  hydrateFavoriteRecipes();
-}, [favoriteIds, recipeMap, token]);
+    hydrateFavoriteRecipes();
+  }, [favoriteIds, recipeMap, token]);
 
   /** Normaliza cualquier receta (de la colección recipes o embebida en el plan)
    * para que siempre tenga:
@@ -262,22 +265,17 @@ export default function PlanAlimenticio() {
       }
 
       // 3) Agregar / MERGEAR con las recetas embebidas del plan
-      //    (usamos los datos del bulk como base: status, tags, createdBy, etc.,
-      //     y sobre-escribimos con los ingredientes/pasos embebidos del plan)
       (latest.dias || []).forEach((d) => {
         (d.comidas || []).forEach((m) => {
           const embedded = m.receta || m.receta_embebida || m.recipe;
           if (!embedded || typeof embedded !== "object") return;
 
-          // intentar obtener el mismo id que usamos en el bulk
           const ridObj = m.recetaId || embedded._id || embedded.id;
           const ridStr = ridObj ? String(ridObj) : null;
 
           const base =
-            (ridStr && fetchedMap[ridStr]) ? fetchedMap[ridStr] : {};
+            ridStr && fetchedMap[ridStr] ? fetchedMap[ridStr] : {};
 
-          // merge: primero lo que viene de bulk (status, tags, createdBy...)
-          // y luego lo embebido (ingredients, steps, kcal si aplica)
           const merged = normalizeRecipe({
             ...base,
             ...embedded,
@@ -369,7 +367,6 @@ export default function PlanAlimenticio() {
       if (recipe) setSelectedRecipe(recipe);
     };
 
-    // Objeto que mandamos a RecipeCard, mezclando info del meal + receta
     const cardRecipe = {
       ...(recipe || {}),
       _id: recipe?._id || rid || (recipe && recipe.id) || undefined,
@@ -381,7 +378,7 @@ export default function PlanAlimenticio() {
         recipe?.description ||
         "Receta generada automáticamente para este horario.",
       kcal: kcal ?? recipe?.kcal,
-      mealName: meal.nombre, // Desayuno / Cena, etc. → se muestra como badge
+      mealName: meal.nombre,
     };
 
     return (
@@ -392,7 +389,7 @@ export default function PlanAlimenticio() {
         <RecipeCard
           recipe={cardRecipe}
           onOpen={handleOpen}
-          showAddButton={false} // en MiPlan solo queremos “Ver receta”
+          showAddButton={false}
           isFavorite={
             cardRecipe._id ? favoriteIds.includes(String(cardRecipe._id)) : false
           }
@@ -402,6 +399,7 @@ export default function PlanAlimenticio() {
     );
   }
 
+  // LOADER INICIAL
   if (loadingInitial) {
     return (
       <main className="pf-loading-wrapper">
@@ -416,7 +414,8 @@ export default function PlanAlimenticio() {
           </div>
           <h2>Estamos cocinando tu plan 🍳</h2>
           <p>
-            Esto puede tardar algunos segundos mientras la IA elige las mejores recetas para ti...
+            Esto puede tardar algunos segundos mientras la IA elige las mejores
+            recetas para ti...
           </p>
         </div>
       </main>
@@ -455,15 +454,12 @@ export default function PlanAlimenticio() {
         </button>
       </div>
 
-      
-
       {activeTab === "generar" && (
         <div className="vf-card">
           <p>
-            Al generar un plan, la IA creará un esquema de 7 días con
-            desayunos, comidas, cenas y colaciones adaptadas a tu perfil.
-            Las recetas quedarán ligadas a tu cuenta para revisión del
-            nutriólogo.
+            Al generar un plan, la IA creará un esquema de 7 días con desayunos,
+            comidas, cenas y colaciones adaptadas a tu perfil. Las recetas
+            quedarán ligadas a tu cuenta para revisión del nutriólogo.
           </p>
           <div className="mt-4">
             <button
@@ -478,88 +474,88 @@ export default function PlanAlimenticio() {
       )}
 
       {activeTab === "actual" && (
-          <>
-            {!plan ? (
-              <div className="vf-card vf-plan-empty">
-                <p className="vf-muted">
-                  No tienes un plan activo. Genera uno con IA.
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="vf-card mb-4">
-                  {/* Encabezado de bienvenida + fuente + estado */}
-                  <div className="pf-plan-header">
-                    <div className="pf-plan-title">
-                      <h2>
-                        {plan.nombre_persona
-                          ? `Hola, ${plan.nombre_persona} 👋`
-                          : "Tu plan semanal"}
-                      </h2>
-                      <p>
-                        Este es tu plan alimenticio para 7 días. Revisa tus comidas,
-                        explora las recetas y sigue las recomendaciones día a día.
-                      </p>
-                    </div>
-
-                    <div className="pf-plan-meta">
-                      <div className="pf-plan-chip">
-                        <span className="pf-plan-chip-label">Fuente</span>
-                        <span className="pf-plan-chip-value">
-                          {((plan.source || "").toLowerCase() === "ai" ||
-                            (plan.source || "").toLowerCase() === "ia")
-                            ? "Generado con IA de VitalFlow"
-                            : plan.source || "Definido por tu nutriólogo"}
-                        </span>
-                      </div>
-
-                      <div
-                        className={
-                          "pf-status-pill " +
-                          (plan.status === "approved"
-                            ? "ok"
-                            : plan.status === "pending"
-                            ? "pending"
-                            : "other")
-                        }
-                      >
-                        {plan.status === "approved" &&
-                          "Aprobado por tu nutriólogo"}
-                        {plan.status === "pending" &&
-                          "Pendiente de revisión"}
-                        {plan.status !== "approved" &&
-                          plan.status !== "pending" &&
-                          (plan.status || "Borrador")}
-                      </div>
-                    </div>
+        <>
+          {!plan ? (
+            <div className="vf-card vf-plan-empty">
+              <p className="vf-muted">
+                No tienes un plan activo. Genera uno con IA.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="vf-card mb-4">
+                {/* Encabezado de bienvenida + fuente + estado */}
+                <div className="pf-plan-header">
+                  <div className="pf-plan-title">
+                    <h2>
+                      {plan.nombre_persona
+                        ? `Hola, ${plan.nombre_persona} 👋`
+                        : "Tu plan semanal"}
+                    </h2>
+                    <p>
+                      Este es tu plan alimenticio para 7 días. Revisa tus
+                      comidas, explora las recetas y sigue las
+                      recomendaciones día a día.
+                    </p>
                   </div>
 
-                  {/* Filtro por tipo de comida + barra de búsqueda */}
-                  <div className="pf-filter-row">
-                    <div className="pf-filter-group">
-                      <label>Mostrar</label>
-                      <select
-                        value={filterMeal}
-                        onChange={(e) => setFilterMeal(e.target.value)}
-                      >
-                        <option value="all">Todas</option>
-                        <option value="Desayuno">Desayuno</option>
-                        <option value="Almuerzo">Almuerzo</option>
-                        <option value="Merienda">Merienda</option>
-                        <option value="Cena">Cena</option>
-                      </select>
+                  <div className="pf-plan-meta">
+                    <div className="pf-plan-chip">
+                      <span className="pf-plan-chip-label">Fuente</span>
+                      <span className="pf-plan-chip-value">
+                        {((plan.source || "").toLowerCase() === "ai" ||
+                          (plan.source || "").toLowerCase() === "ia")
+                          ? "Generado con IA de VitalFlow"
+                          : plan.source || "Definido por tu nutriólogo"}
+                      </span>
                     </div>
 
-                    <div className="pf-filter-search">
-                      <input
-                        type="text"
-                        placeholder="Buscar por nombre de receta..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                      />
+                    <div
+                      className={
+                        "pf-status-pill " +
+                        (plan.status === "approved"
+                          ? "ok"
+                          : plan.status === "pending"
+                          ? "pending"
+                          : "other")
+                      }
+                    >
+                      {plan.status === "approved" &&
+                        "Aprobado por tu nutriólogo"}
+                      {plan.status === "pending" && "Pendiente de revisión"}
+                      {plan.status !== "approved" &&
+                        plan.status !== "pending" &&
+                        (plan.status || "Borrador")}
                     </div>
                   </div>
                 </div>
+
+                {/* Filtro por tipo de comida + barra de búsqueda */}
+                <div className="pf-filter-row">
+                  <div className="pf-filter-group">
+                    <label>Mostrar</label>
+                    <select
+                      value={filterMeal}
+                      onChange={(e) => setFilterMeal(e.target.value)}
+                    >
+                      <option value="all">Todas</option>
+                      <option value="Desayuno">Desayuno</option>
+                      <option value="Almuerzo">Almuerzo</option>
+                      <option value="Merienda">Merienda</option>
+                      <option value="Cena">Cena</option>
+                    </select>
+                  </div>
+
+                  <div className="pf-filter-search">
+                    <input
+                      type="text"
+                      placeholder="Buscar por nombre de receta..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
 
               {/* Días del plan */}
               <section className="pf-days">
@@ -567,71 +563,33 @@ export default function PlanAlimenticio() {
                   <div className="pf-day-card" key={d.dia}>
                     <h3 className="pf-day-title">Día {d.dia}</h3>
                     <div className="pf-meals-list">
-                              {(d.comidas || [])
-                                .filter((m) => {
-                                  // 1) filtro por tipo de comida (Desayuno, Cena, etc.)
-                                  const passesMeal =
-                                    filterMeal === "all"
-                                      ? true
-                                      : String(m.nombre || "")
-                                          .toLowerCase()
-                                          .includes(filterMeal.toLowerCase());
+                      {(d.comidas || [])
+                        .filter((m) => {
+                          const passesMeal =
+                            filterMeal === "all"
+                              ? true
+                              : String(m.nombre || "")
+                                  .toLowerCase()
+                                  .includes(filterMeal.toLowerCase());
 
-                                  if (!passesMeal) return false;
+                          if (!passesMeal) return false;
 
-                                  // 2) filtro por texto de búsqueda (título de la receta)
-                                  if (!search.trim()) return true;
+                          if (!search.trim()) return true;
 
-                                  const q = search.toLowerCase();
-                                  const title = String(
-                                    m.recetaTitle ||
-                                      (m.receta && m.receta.title) ||
-                                      ""
-                                  ).toLowerCase();
+                          const q = search.toLowerCase();
+                          const title = String(
+                            m.recetaTitle ||
+                              (m.receta && m.receta.title) ||
+                              ""
+                          ).toLowerCase();
 
-                                  return title.includes(q);
-                                })
-                                .map((meal) => renderMeal(meal))}
+                          return title.includes(q);
+                        })
+                        .map((meal) => renderMeal(meal))}
                     </div>
                   </div>
                 ))}
               </section>
-
-              {/* Historial / sugeridas */}
-              {/* <div className="vf-card mt-6">
-                <h4>Historial / Recetas sugeridas</h4>
-                <div className="vf-grid-suggestions">
-                  {(plan.suggestedRecipes || []).length === 0 && (
-                    <div className="muted">No hay recetas sugeridas</div>
-                  )}
-                  {(plan.suggestedRecipes || []).map((s) => {
-                    const id =
-                      typeof s === "string"
-                        ? s
-                        : s._id || s.id || s.recipeId || s.recetaId;
-                    const r = (id && recipeMap[id]) || normalizeRecipe(s);
-                    return (
-                      <div
-                        className="suggestion"
-                        key={id || JSON.stringify(s)}
-                        onClick={() => setSelectedRecipe(r)}
-                      >
-                        {r?.imageUrl && (
-                          <img src={r.imageUrl} alt={r.title || "Receta"} />
-                        )}
-                        <div className="suggestion-body">
-                          <div className="suggestion-title">
-                            {r?.title || "Receta generada"}
-                          </div>
-                          <div className="muted small">
-                            {r?.kcal ? `${r.kcal} kcal` : ""}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div> */}
             </>
           )}
         </>
@@ -643,7 +601,8 @@ export default function PlanAlimenticio() {
           {favoriteIds.length === 0 ? (
             <div className="vf-card vf-plan-empty">
               <p className="vf-muted">
-                Aún no has marcado ninguna receta como favorita. Toca el corazón en una receta para agregarla aquí.
+                Aún no has marcado ninguna receta como favorita. Toca el
+                corazón en una receta para agregarla aquí.
               </p>
             </div>
           ) : (
@@ -679,7 +638,8 @@ export default function PlanAlimenticio() {
           onClose={() => setSelectedRecipe(null)}
         />
       )}
-            {/* Modal para avisos al generar plan (ej: solo 1 cada 7 días) */}
+
+      {/* Modal para avisos al generar plan (ej: solo 1 cada 7 días) */}
       {planErrorMsg && (
         <div
           className="vf-modal-overlay"
@@ -707,18 +667,13 @@ export default function PlanAlimenticio() {
             </div>
 
             <footer className="vf-modal-footer">
-              <button
-                className="vf-btn"
-                onClick={() => setPlanErrorMsg("")}
-              >
+              <button className="vf-btn" onClick={() => setPlanErrorMsg("")}>
                 Entendido
               </button>
             </footer>
           </div>
         </div>
       )}
-
-      
     </main>
   );
 }
