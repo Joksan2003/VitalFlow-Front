@@ -102,7 +102,7 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
       <div
         id="container"
         className={`container ${active ? "active" : ""}`}
-        onClick={(e) => e.stopPropagation()} // 👈 evita que el click dentro cierre el modal
+        onClick={(e) => e.stopPropagation()} // 👈 evita cerrar si clicas dentro
       >
         {/* SIGN UP */}
         <div className="form-container sign-up">
@@ -148,17 +148,6 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
             />
 
             {error && <div className="vf-error">{error}</div>}
-
-            <div className="vf-alt-switch">
-              <span className="vf-alt-text">¿Ya tienes cuenta?</span>
-              <button
-                type="button"
-                className="vf-alt-link"
-                onClick={() => setActive(false)}
-              >
-                Inicia sesión
-              </button>
-            </div>
 
             <button type="submit" disabled={loading}>
               {loading ? "Procesando..." : "Regístrate"}
@@ -210,26 +199,14 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
               className="forgot"
               onClick={(e) => {
                 e.preventDefault();
-                onClose(); // cierra el modal
+                onClose();
                 navigate("/forgot-password");
               }}
             >
               ¿Olvidaste tu contraseña?
             </a>
-
-            <div className="vf-alt-switch">
-              <span className="vf-alt-text">¿No tienes cuenta?</span>
-              <button
-                type="button"
-                className="vf-alt-link"
-                onClick={() => setActive(true)}
-              >
-                Crear cuenta
-              </button>
-            </div>
-
             <button type="submit" disabled={loading}>
-              {loading ? "Procesando..." : "Iniciar sesion"}
+              {loading ? "Procesando..." : "Iniciar sesión"}
             </button>
           </form>
         </div>
