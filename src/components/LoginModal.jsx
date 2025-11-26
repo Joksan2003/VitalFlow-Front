@@ -32,7 +32,7 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
     };
   }, [open]);
 
-  // si el modal se abre, resetea errores/inputs (opcional)
+  // si el modal se abre, resetea errores/inputs
   useEffect(() => {
     if (open) {
       setError("");
@@ -47,9 +47,9 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
 
   if (!open) return null;
 
-  const handleOverlayClick = (e) => {
-    // si quieres que el usuario pueda cerrar haciendo click fuera, descomenta:
-    // onClose();
+  // 👉 cerrar al hacer click en el overlay
+  const handleOverlayClick = () => {
+    onClose();
   };
 
   // SIGN UP submit
@@ -58,8 +58,9 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
     setError("");
     setLoading(true);
     try {
-      if (!suEmail || !suPassword) throw new Error("Completa email y contraseña");
-      // llama al register del contexto (debe guardar token y user)
+      if (!suEmail || !suPassword)
+        throw new Error("Completa email y contraseña");
+
       await register({ name: suName, email: suEmail, password: suPassword });
       setLoading(false);
       onClose();
@@ -77,7 +78,9 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
     setError("");
     setLoading(true);
     try {
-      if (!siEmail || !siPassword) throw new Error("Completa email y contraseña");
+      if (!siEmail || !siPassword)
+        throw new Error("Completa email y contraseña");
+
       await login({ email: siEmail, password: siPassword });
       setLoading(false);
       onClose();
@@ -90,11 +93,16 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
   };
 
   return (
-    <div className="vf-auth-overlay" onClick={handleOverlayClick} role="dialog" aria-modal="true">
+    <div
+      className="vf-auth-overlay"
+      onClick={handleOverlayClick}
+      role="dialog"
+      aria-modal="true"
+    >
       <div
         id="container"
         className={`container ${active ? "active" : ""}`}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()} // 👈 evita que el click dentro cierre el modal
       >
         {/* SIGN UP */}
         <div className="form-container sign-up">
@@ -102,10 +110,18 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
             <h1>Crea una cuenta</h1>
 
             <div className="social-icons">
-              <a href="#" className="icon" aria-label="google"><i className="fa-brands fa-google-plus-g" /></a>
-              <a href="#" className="icon" aria-label="facebook"><i className="fa-brands fa-facebook-f" /></a>
-              <a href="#" className="icon" aria-label="github"><i className="fa-brands fa-github" /></a>
-              <a href="#" className="icon" aria-label="linkedin"><i className="fa-brands fa-linkedin-in" /></a>
+              <a href="#" className="icon" aria-label="google">
+                <i className="fa-brands fa-google-plus-g" />
+              </a>
+              <a href="#" className="icon" aria-label="facebook">
+                <i className="fa-brands fa-facebook-f" />
+              </a>
+              <a href="#" className="icon" aria-label="github">
+                <i className="fa-brands fa-github" />
+              </a>
+              <a href="#" className="icon" aria-label="linkedin">
+                <i className="fa-brands fa-linkedin-in" />
+              </a>
             </div>
 
             <span>Utiliza tu correo para registrarte</span>
@@ -145,10 +161,18 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
             <h1>Inicia sesión</h1>
 
             <div className="social-icons">
-              <a href="#" className="icon" aria-label="google"><i className="fa-brands fa-google-plus-g" /></a>
-              <a href="#" className="icon" aria-label="facebook"><i className="fa-brands fa-facebook-f" /></a>
-              <a href="#" className="icon" aria-label="github"><i className="fa-brands fa-github" /></a>
-              <a href="#" className="icon" aria-label="linkedin"><i className="fa-brands fa-linkedin-in" /></a>
+              <a href="#" className="icon" aria-label="google">
+                <i className="fa-brands fa-google-plus-g" />
+              </a>
+              <a href="#" className="icon" aria-label="facebook">
+                <i className="fa-brands fa-facebook-f" />
+              </a>
+              <a href="#" className="icon" aria-label="github">
+                <i className="fa-brands fa-github" />
+              </a>
+              <a href="#" className="icon" aria-label="linkedin">
+                <i className="fa-brands fa-linkedin-in" />
+              </a>
             </div>
 
             <span>Utiliza tu correo y contraseña</span>
@@ -175,8 +199,8 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
               className="forgot"
               onClick={(e) => {
                 e.preventDefault();
-                onClose();          // cierra el modal
-                navigate('/forgot-password'); // te lleva a la pantalla de recuperación
+                onClose(); // cierra el modal
+                navigate("/forgot-password");
               }}
             >
               ¿Olvidaste tu contraseña?
@@ -187,13 +211,12 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
           </form>
         </div>
 
-        {/* TOGGLE PANEL (controls the animation) */}
+        {/* TOGGLE PANEL */}
         <div className="toggle-container">
           <div className="toggle">
             <div className="toggle-panel toggle-left">
               <h1>Bienvenido de vuelta!</h1>
-              <p>Ingresa tus datos para iniciar sesion</p>
-              {/* This button switches to Sign In view (remove 'active') */}
+              <p>Ingresa tus datos para iniciar sesión</p>
               <button
                 className="hidden"
                 type="button"
@@ -206,8 +229,9 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
 
             <div className="toggle-panel toggle-right">
               <h1>Hola, Amigo!</h1>
-              <p>Registra tus datos personales para poder ingresar a este sitio</p>
-              {/* This button switches to Sign Up view (add 'active') */}
+              <p>
+                Registra tus datos personales para poder ingresar a este sitio
+              </p>
               <button
                 className="hidden"
                 type="button"
