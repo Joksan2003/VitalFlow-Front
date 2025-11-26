@@ -1,65 +1,78 @@
-// src/components/header.jsx
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import "../styles/header.css";
 
-export default function Header() {
+export default function Header({ onOpenLogin }) {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
 
-  const toggleMenu = () => setOpen((prev) => !prev);
-  const closeMenu = () => setOpen(false);
+  const handleToggle = () => setOpen((s) => !s);
 
-  const isActive = (path) =>
-    location.pathname === path ? { textDecoration: "underline" } : {};
+  const handleLink = (e, id) => {
+    e.preventDefault();
+    setOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleOpenLogin = () => {
+    console.log("Abrir modal login");
+    if (typeof onOpenLogin === "function") {
+      onOpenLogin();
+    } else {
+      console.warn("onOpenLogin no es función (o no fue pasada).", onOpenLogin);
+    }
+    // al abrir login cerramos menú móvil
+    setOpen(false);
+  };
 
   return (
     <header className="vf-header">
-      {/* Logo / Marca */}
-      <div className="vf-header__left">
-        <Link to="/" onClick={closeMenu}>
-          VF
-        </Link>
-      </div>
+      <div className="vf-header__left">VitalFlow</div>
 
-      {/* Nav (usa .open en móvil) */}
       <nav className={`vf-nav ${open ? "open" : ""}`}>
         <ul>
           <li>
-            <Link to="/" style={isActive("/")} onClick={closeMenu}>
+            <a href="#home" onClick={(e) => handleLink(e, "home")}>
               Inicio
-            </Link>
+            </a>
           </li>
           <li>
-            <a href="#features" onClick={closeMenu}>
+            <a href="#func" onClick={(e) => handleLink(e, "func")}>
               Funcionalidades
             </a>
           </li>
           <li>
-            <a href="#faq" onClick={closeMenu}>
-              Preguntas frecuentes
+            <a href="#impact" onClick={(e) => handleLink(e, "impact")}>
+              Impacto
+            </a>
+          </li>
+          <li>
+            <a href="#contact" onClick={(e) => handleLink(e, "contact")}>
+              Contacto
             </a>
           </li>
 
-          {/* En móvil podrías mostrar aquí los botones de login/registro si quieres */}
+          {/* Botón de login dentro del menú (solo visible en mobile por CSS) */}
+          <li className="vf-nav__mobile-login">
+            <button type="button" onClick={handleOpenLogin}>
+              Ingresar
+            </button>
+          </li>
         </ul>
       </nav>
 
-      {/* Lado derecho: login + burger */}
       <div className="vf-header__right">
-        <Link to="/login" onClick={closeMenu}>
-          <button className="vf-login">Iniciar sesión</button>
-        </Link>
+        {/* Botón login, visible sólo en desktop */}
+        <button type="button" className="vf-login" onClick={handleOpenLogin}>
+          Ingresar
+        </button>
 
-        {/* Burger solo se ve en móvil (lo controla el CSS con @media) */}
         <button
           className="vf-burger"
-          onClick={toggleMenu}
-          aria-label="Abrir menú"
+          onClick={handleToggle}
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span />
+          <span />
+          <span />
         </button>
       </div>
     </header>

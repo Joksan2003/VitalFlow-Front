@@ -10,6 +10,7 @@
   top: 0;
   z-index: 999;
   height: 12vh;
+  box-sizing: border-box;
 }
 
 /* Logo */
@@ -19,7 +20,13 @@
   font-size: 4rem;
 }
 
-/* Nav centered on desktop */
+/* Nav (desktop) */
+.vf-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .vf-nav ul {
   display: flex;
   gap: 80px;
@@ -27,16 +34,20 @@
   margin: 0;
   padding: 0;
 }
+
 .vf-nav a {
   color: #fff;
   text-decoration: none;
   font-weight: 500;
   font-size: 1.5rem;
 }
-.vf-nav a:hover { color: #00e6b3; }
 
-/* Right side */
-.vf-login{
+.vf-nav a:hover {
+  color: #00e6b3;
+}
+
+/* Botón login derecha (desktop) */
+.vf-login {
   background: #00c896;
   color: #071011;
   border: none;
@@ -48,7 +59,7 @@
   font-size: 1.5rem;
 }
 
-/* Burger (hidden on desktop) */
+/* Burger (oculto en desktop) */
 .vf-burger {
   display: none;
   background: transparent;
@@ -57,6 +68,7 @@
   gap: 4px;
   cursor: pointer;
 }
+
 .vf-burger span {
   display: block;
   width: 22px;
@@ -64,32 +76,92 @@
   background: #fff;
 }
 
-/* Responsive: mobile */
+/* --- LOGIN DENTRO DEL MENÚ (SOLO MOBILE) --- */
+.vf-nav__mobile-login {
+  display: none;
+}
+
+.vf-nav__mobile-login button {
+  width: 100%;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  background: #00c896;
+  color: #071011;
+  font-weight: 600;
+}
+
+/* ==================  MOBILE  ================== */
 @media (max-width: 800px) {
-  .vf-nav { 
-    position: absolute;
+  .vf-header {
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
-    top: 64px;
-    background: rgba(7,10,11,0.98);
-    transform: translateY(-20px);
+    height: 60px;
+    padding: 10px 18px;
+    z-index: 1000;
+  }
+
+  .vf-header__left {
+    font-size: 1.6rem;
+  }
+
+  /* El nav se vuelve overlay */
+  .vf-nav {
+    position: fixed;
+    top: 60px;        /* justo debajo del header */
+    left: 0;
+    right: 0;
+    background: rgba(7, 10, 11, 0.98);
+    transform: translateY(-16px);
     opacity: 0;
     pointer-events: none;
-    transition: all .22s ease;
-    padding: 12px 0;
+    transition: all 0.22s ease;
+    padding: 12px 0 18px;
+    justify-content: center;
+    z-index: 999;
   }
+
   .vf-nav.open {
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
   }
+
   .vf-nav ul {
     flex-direction: column;
     gap: 12px;
     align-items: center;
   }
-  .vf-header__left { font-size: 1rem; }
-  .vf-login { display: none; } /* put login inside nav on mobile if desired */
-  .vf-burger { display: inline-flex; }
-  .vf-header__right { display:flex; align-items:center; gap:8px; }
+
+  .vf-nav a {
+    font-size: 1.1rem;
+  }
+
+  /* login de la derecha se oculta */
+  .vf-login {
+    display: none;
+  }
+
+  /* login dentro del menú se muestra */
+  .vf-nav__mobile-login {
+    display: block;
+    width: 100%;
+    padding: 4px 20px 0;
+    box-sizing: border-box;
+  }
+
+  /* burger visible */
+  .vf-burger {
+    display: inline-flex;
+  }
+
+  .vf-header__right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 }
