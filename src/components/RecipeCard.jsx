@@ -1,6 +1,6 @@
 // src/components/RecipeCard.jsx
 import React, { useState, useEffect, useRef } from "react";
-
+import placeholderImg from "../assets/foto_default_recipe.jpg";
 export default function RecipeCard({
   recipe,
   onOpen,
@@ -33,7 +33,12 @@ export default function RecipeCard({
     };
   }, [menuOpen]);
 
-  const img = recipe.imageUrl || "/placeholder_recipe.png";
+  const img = recipe.imageUrl || placeholderImg;
+
+  const handleImgError = (e) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src = placeholderImg;
+  };
 
   const favoritesCount =
     typeof recipe.favoriteCount === "number"
@@ -86,7 +91,7 @@ export default function RecipeCard({
     >
       {/* Imagen / encabezado */}
       <div className="card-media">
-        <img src={img} alt={recipe.title} />
+        <img src={img} alt={recipe.title} onError={handleImgError} />
         {recipe.local && <span className="badge local">Local</span>}
 
         {recipe.mealName && (

@@ -1,6 +1,7 @@
 // src/components/RecipeModal.jsx
 import React, { useEffect } from "react";
 import "../styles/recipeModal.css";
+import placeholderImg from "../assets/foto_default_recipe.jpg";
 
 export default function RecipeModal({ recipe, onClose }) {
   if (!recipe) return null;
@@ -169,11 +170,14 @@ export default function RecipeModal({ recipe, onClose }) {
         <div className="rm-grid">
           {/* Lado izquierdo: imagen */}
           <div className="rm-media">
-            {imageUrl ? (
-              <img src={imageUrl} alt={title} />
-            ) : (
-              <div className="rm-placeholder">Sin imagen</div>
-            )}
+            <img
+              src={imageUrl || placeholderImg}
+              alt={title}
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                e.currentTarget.src = placeholderImg;
+              }}
+            />
           </div>
 
           {/* Lado derecho: contenido (scroll interno) */}

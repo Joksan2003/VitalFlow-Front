@@ -2,7 +2,7 @@
 .admin-users-page {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 24px 16px 40px;
+  padding: clamp(16px, 3vw, 24px) clamp(14px, 3vw, 16px) 40px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "Segoe UI", sans-serif;
   color: #111827;
@@ -11,9 +11,10 @@
 /* Header */
 .admin-users-header {
   display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
   margin-bottom: 24px;
 }
 
@@ -29,9 +30,12 @@
   font-size: 0.95rem;
 }
 
+/* total registrados */
 .admin-users-stats {
   display: flex;
   gap: 16px;
+  justify-content: center;
+  text-align: center;
 }
 
 .admin-users-stat {
@@ -40,7 +44,7 @@
   border-radius: 12px;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
-  text-align: right;
+  text-align: center;
 }
 
 .stat-label {
@@ -51,8 +55,8 @@
 }
 
 .stat-value {
-  font-size: 1.3rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
 /* Filtros */
@@ -75,9 +79,9 @@
 .search-box {
   display: flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: 12px;
   background: #f3f4f6;
-  padding: 4px 4px 4px 12px;
+  padding: 4px 8px 4px 12px;
 }
 
 .search-box input {
@@ -91,8 +95,8 @@
 
 .search-box button {
   border: none;
-  border-radius: 999px;
-  padding: 6px 12px;
+  border-radius: 10px;
+  padding: 8px 14px;
   font-size: 0.9rem;
   cursor: pointer;
   background: #111827;
@@ -659,29 +663,34 @@
 
   .admin-users-filters {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    gap: 12px;
   }
 
   .filters-left,
   .filters-right {
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .search-box {
     width: 100%;
+    max-width: 520px;
   }
 
   .search-box input {
     width: 100%;
+    text-align: center;
   }
 
   .admin-users-table-wrapper {
     border-radius: 12px;
+    overflow-x: auto;
   }
 
   .admin-users-table {
     font-size: 0.8rem;
+    min-width: 860px;
   }
 
   .admin-users-modal {

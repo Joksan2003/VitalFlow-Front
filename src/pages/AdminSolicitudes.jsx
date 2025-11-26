@@ -277,6 +277,152 @@ export default function AdminSolicitudes() {
             className="admin-sol-modal"
             onClick={(e) => e.stopPropagation()}
           >
+            <header className="admin-sol-modal-header">
+              <div>
+                <h2>Solicitud de {selected.fullName || selected.user?.name || selected.userId?.name || "Usuario"}</h2>
+                <p className="small">
+                  Enviada el {formatDate(selected.createdAt)} • {renderStatusPill(selected.status)}
+                </p>
+              </div>
+              <button className="close-btn" onClick={closeDetails}>
+                ✕
+              </button>
+            </header>
+
+            <div className="admin-sol-modal-body">
+              {(() => {
+                const user = selected.user || selected.userId || {};
+                const email = selected.email || user.email || "—";
+                const city = selected.city || user.city || "—";
+                return (
+                  <div className="admin-sol-modal-grid">
+                    <section className="modal-section">
+                      <h3>Contacto</h3>
+                      <p><span className="field-label-inline">Nombre:</span> {selected.fullName || user.name || "—"}</p>
+                      <p><span className="field-label-inline">Correo:</span> {email}</p>
+                      <p><span className="field-label-inline">Teléfono:</span> {selected.phone || user.phone || "—"}</p>
+                      <p><span className="field-label-inline">Ciudad:</span> {city}</p>
+                    </section>
+
+                    <section className="modal-section">
+                      <h3>Profesional</h3>
+                      <p><span className="field-label-inline">Cédula / ID:</span> {selected.professionalId || "—"}</p>
+                      <p><span className="field-label-inline">Título:</span> {selected.degree || "—"}</p>
+                      <p><span className="field-label-inline">Universidad:</span> {selected.university || "—"}</p>
+                      <p><span className="field-label-inline">Años de experiencia:</span> {selected.yearsExperience || "—"}</p>
+                      <div className="chips">
+                        {Array.isArray(selected.specialties) && selected.specialties.length > 0 ? (
+                          selected.specialties.map((sp) => (
+                            <span key={sp} className="chip">{sp}</span>
+                          ))
+                        ) : (
+                          <span className="muted">Sin especialidades</span>
+                        )}
+                      </div>
+                    </section>
+
+                    <section className="modal-section">
+                      <h3>Servicios</h3>
+                      <p><span className="field-label-inline">Centro principal:</span> {selected.mainWorkplace || "—"}</p>
+                      <p><span className="field-label-inline">Modalidad:</span> {selected.modalities || "—"}</p>
+                      {selected.website && (
+                        <p><a className="link" href={selected.website} target="_blank" rel="noreferrer">Sitio web</a></p>
+                      )}
+                      {selected.instagram && (
+                        <p><a className="link" href={selected.instagram} target="_blank" rel="noreferrer">Instagram</a></p>
+                      )}
+                    </section>
+
+                    <section className="modal-section">
+                      <h3>Documentos</h3>
+                      {selected.certificateUrl || selected.certificate ? (
+                        <p>
+                          <a
+                            className="link"
+                            href={selected.certificateUrl || selected.certificate}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Ver certificado
+                          </a>
+                        </p>
+                      ) : (
+                        <p className="muted">Sin certificado adjunto</p>
+                      )}
+                      {selected.cvUrl || selected.cv ? (
+                        <p>
+                          <a
+                            className="link"
+                            href={selected.cvUrl || selected.cv}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Ver CV
+                          </a>
+                        </p>
+                      ) : (
+                        <p className="muted">Sin CV adjunto</p>
+                      )}
+                    </section>
+
+                    {selected.notes && (
+                      <section className="modal-section">
+                        <h3>Notas del solicitante</h3>
+                        <div className="notes-box">{selected.notes}</div>
+                      </section>
+                    )}
+
+                    <section className="modal-section full">
+                      <h3>Notas del administrador</h3>
+                      <textarea
+                        className="admin-notes-input"
+                        rows={3}
+                        placeholder="Comentarios para aprobar, rechazar o pedir más info..."
+                        value={adminNotes}
+                        onChange={(e) => setAdminNotes(e.target.value)}
+                      />
+                    </section>
+                  </div>
+                );
+              })()}
+            </div>
+
+            <footer className="admin-sol-modal-footer">
+              <button
+                className="btn-ghost"
+                type="button"
+                onClick={closeDetails}
+                disabled={actionLoading}
+              >
+                Cerrar
+              </button>
+              <div className="footer-actions">
+                <button
+                  className="btn-primary"
+                  type="button"
+                  onClick={() => handleAction("approve")}
+                  disabled={actionLoading}
+                >
+                  Aprobar
+                </button>
+                <button
+                  className="btn-warning"
+                  type="button"
+                  onClick={() => handleAction("needs_info")}
+                  disabled={actionLoading}
+                >
+                  Pedir info
+                </button>
+                <button
+                  className="btn-danger"
+                  type="button"
+                  onClick={() => handleAction("reject")}
+                  disabled={actionLoading}
+                >
+                  Rechazar
+                </button>
+              </div>
+            </footer>
           </div>
         </div>
       )}
