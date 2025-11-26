@@ -112,12 +112,15 @@
     left: 0;
     right: 0;
     background: rgba(7, 10, 11, 0.98);
+    height: calc(100vh - 60px);
+    display: flex;
+    justify-content: center;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-20px);
     transition: all 0.25s ease;
-    padding: 18px 0;
-    z-index: 998;
+    padding-top: 30px;
+    z-index: 1500;
   }
 
   .vf-nav.open {
@@ -127,9 +130,8 @@
   }
 
   .vf-nav ul {
-    flex-direction: vertical;
     flex-direction: column;
-    gap: 12px;
+    gap: 22px;
     align-items: center;
   }
 
@@ -149,8 +151,7 @@
   }
 
   .vf-header__right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    position: relative;
+    z-index: 2000;
   }
 }

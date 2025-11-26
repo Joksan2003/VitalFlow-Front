@@ -1,8 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/header.css";
 
 export default function Header({ onOpenLogin }) {
   const [open, setOpen] = useState(false);
+
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (open && navRef.current && !navRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [open]);
 
   const handleToggle = () => setOpen((s) => !s);
 
@@ -27,7 +39,7 @@ export default function Header({ onOpenLogin }) {
     <header className="vf-header">
       <div className="vf-header__left">VitalFlow</div>
 
-      <nav className={`vf-nav ${open ? "open" : ""}`}>
+      <nav ref={navRef} className={`vf-nav ${open ? "open" : ""}`}>
         <ul>
           <li>
             <a href="#home" onClick={(e) => handleLink(e, "home")}>
