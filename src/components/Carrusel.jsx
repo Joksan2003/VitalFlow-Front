@@ -51,7 +51,14 @@ export default function Carousel() {
       >
         {slides.map((s) => (
           <figure key={s.id} className="vf-slide" role="group" aria-roledescription="slide" aria-label={s.title}>
-            <img src={s.img} alt={s.title} />
+            <img
+              src={s.img}
+              alt={s.title}
+              loading={s.id === 1 ? "eager" : "lazy"}
+              decoding="async"
+              draggable="false"
+              sizes="(max-width: 900px) 100vw, 80vw"
+            />
 
             {/* overlay central grande */}
             <figcaption className="vf-slide__caption">
