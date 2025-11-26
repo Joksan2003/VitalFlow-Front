@@ -235,6 +235,34 @@
   display: inline-block;
 }
 
+.vf-alt-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.vf-alt-text {
+  color: #555;
+}
+
+.vf-alt-link {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #03b387;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.vf-alt-link:hover {
+  text-decoration: underline;
+}
+
 /* ============== MOBILE ============== */
 @media (max-width: 600px) {
   .vf-auth-overlay {
@@ -291,5 +319,9 @@
 
   .container form {
     padding: 24px 24px 32px;
+  }
+
+  .vf-alt-switch {
+    justify-content: center;
   }
 }

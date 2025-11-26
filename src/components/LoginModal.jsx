@@ -149,6 +149,17 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
 
             {error && <div className="vf-error">{error}</div>}
 
+            <div className="vf-alt-switch">
+              <span className="vf-alt-text">¿Ya tienes cuenta?</span>
+              <button
+                type="button"
+                className="vf-alt-link"
+                onClick={() => setActive(false)}
+              >
+                Inicia sesión
+              </button>
+            </div>
+
             <button type="submit" disabled={loading}>
               {loading ? "Procesando..." : "Regístrate"}
             </button>
@@ -205,6 +216,18 @@ export default function LoginModal({ open = false, onClose = () => {} }) {
             >
               ¿Olvidaste tu contraseña?
             </a>
+
+            <div className="vf-alt-switch">
+              <span className="vf-alt-text">¿No tienes cuenta?</span>
+              <button
+                type="button"
+                className="vf-alt-link"
+                onClick={() => setActive(true)}
+              >
+                Crear cuenta
+              </button>
+            </div>
+
             <button type="submit" disabled={loading}>
               {loading ? "Procesando..." : "Iniciar sesion"}
             </button>
