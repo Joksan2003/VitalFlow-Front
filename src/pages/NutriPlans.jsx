@@ -101,6 +101,9 @@ const [toast, setToast] = useState({
   function handleSelectPlan(plan) {
     setSelectedPlan(plan);
     setApproveNotes(plan.reviewerNotes || "");
+    if (typeof window !== "undefined" && window.innerWidth <= 900) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   function formatDate(d) {

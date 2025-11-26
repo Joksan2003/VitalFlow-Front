@@ -4,21 +4,23 @@
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
   display: flex;
-  align-items: flex-start;   /* antes: center */
+  align-items: center;
   justify-content: center;
-  padding-top: 130px;         /* para no chocar con el header */
+  padding: clamp(12px, 3vw, 28px);
   z-index: 50;
+  overflow-y: auto;
 }
 
 /* Tarjeta principal */
 .crm-card {
   background: #ffffff;
   border-radius: 18px;
-  width: min(900px, 95vw);
-  max-height: 90vh;
+  width: min(960px, 95vw);
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+  overflow: hidden;
 }
 
 /* Header */
@@ -48,6 +50,8 @@
 .crm-form {
   padding: 1rem 1.5rem 1.25rem;
   overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .crm-error {
@@ -116,6 +120,7 @@
   padding-top: 0.75rem;
   border-top: 1px solid #e5e7eb;
   margin-top: 0.5rem;
+  background: #fff;
 }
 
 .crm-btn {
@@ -154,6 +159,11 @@
 
   .crm-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .crm-row-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
   }
 }
 
@@ -318,4 +328,16 @@
   .crm-ingredients-row .crm-ing-name {
     grid-column: 1 / -1;
   }
+}
+
+@media (max-width: 600px) {
+  .crm-overlay { padding: 12px; }
+  .crm-card { border-radius: 12px; }
+  .crm-header { padding: 1rem 1.1rem; }
+  .crm-form { padding: 0.9rem 1.1rem 1rem; }
+  .crm-row-3 { grid-template-columns: 1fr; }
+  .crm-ingredients-row { grid-template-columns: 1fr; }
+  .crm-steps-list { gap: 0.35rem; }
+  .crm-step-row { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .crm-chip-input { min-width: 100px; }
 }

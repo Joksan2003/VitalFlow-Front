@@ -38,6 +38,15 @@ export default function NutriRetos() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter]);
 
+  // búsqueda reactiva mientras escribe
+  useEffect(() => {
+    const t = setTimeout(() => {
+      fetchChallenges({ q: search });
+    }, 250);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
+
   async function fetchChallenges(opts = {}) {
     try {
       setLoading(true);
@@ -218,16 +227,7 @@ export default function NutriRetos() {
             placeholder="Buscar por nombre, descripción o etiqueta..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") fetchChallenges({ q: e.target.value });
-            }}
           />
-          <button
-            onClick={() => fetchChallenges()}
-            className="nutri-retos-btn-outline"
-          >
-            Buscar
-          </button>
         </div>
 
                 <div className="nutri-retos-right">

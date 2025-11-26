@@ -3,7 +3,7 @@
 .nutri-plans {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 20px 40px;
+  padding: clamp(16px, 3vw, 24px) clamp(14px, 3vw, 20px) 40px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
     sans-serif;
   color: #111827;
@@ -516,6 +516,59 @@
 
   .plan-detail__actions {
     align-items: flex-start;
+  }
+
+  .nutri-plans {
+    padding-bottom: 28px;
+  }
+
+  .nutri-plans__title,
+  .nutri-plans__subtitle {
+    text-align: center;
+  }
+
+  .plan-detail__days-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .nutri-plans {
+    padding: 14px 12px 28px;
+  }
+
+  .nutri-plans__toolbar {
+    gap: 12px;
+  }
+
+  .toolbar-group {
+    width: 100%;
+  }
+
+  .toolbar-status {
+    justify-content: flex-start;
+  }
+
+  .nutri-plans__list {
+    max-height: none;
+  }
+
+  .plan-detail__actions {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .plan-detail__actions .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .plan-detail__days-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-detail__header h2 {
+    font-size: 1.1rem;
   }
 }
 

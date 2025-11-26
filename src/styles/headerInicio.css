@@ -65,13 +65,13 @@
 .profile-btn{
   background: transparent;
   border: none;
-  padding: 6px;
+  padding: 4px;
   border-radius: 999px;
   cursor: pointer;
 }
 .vf-avatar{
-  width: 80px;
-  height: 80px;
+  width: clamp(44px, 5vw, 58px);
+  height: clamp(44px, 5vw, 58px);
   border-radius: 999px;
   object-fit: cover;
   display: block;
@@ -155,5 +155,11 @@
     gap: 8px;
   }
   .vf-burger { display: inline-flex; }
-  .progreso-btn { display: none; } /* hide highlighted button on small screens (optional) */
+  /* mostramos Progreso también en mobile */
+  .progreso-btn { display: inline; }
+
+  .vf-avatar {
+    width: 42px;
+    height: 42px;
+  }
 }

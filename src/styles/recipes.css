@@ -25,19 +25,20 @@
   color: #fecaca; /* tono rojito suave */
 }
 /* --- recipes.css --- */
-.recipes-page { padding: 28px; max-width: 1200px; margin: 0 auto; }
-.recipes-header h1 { font-size: 2rem; margin-bottom: 6px;}
-.sub { color:#6b7280; margin-bottom:18px;}
+.recipes-page { padding: clamp(16px, 2vw + 8px, 28px); max-width: 1200px; margin: 0 auto; }
+.recipes-header h1 { font-size: clamp(1.6rem, 3vw, 2rem); margin-bottom: 6px;}
+.sub { color:#6b7280; margin-bottom:18px; }
 
-.filters-wrapper { display:flex; gap:12px; align-items:center; margin-bottom:16px; }
-.vf-filters { display:flex; gap:10px; flex:1; align-items:center; }
-.vf-filters input[type="search"] { flex:1; padding:10px 12px; border-radius:12px; border:1px solid #e5e7eb; }
-.vf-filters select, .vf-filters input[type="number"] { padding:10px; border-radius:10px; border:1px solid #e5e7eb; }
+.filters-wrapper { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; flex-wrap: wrap; }
+.vf-filters { display:flex; gap:10px; flex:1 1 280px; align-items:center; flex-wrap: wrap; }
+.vf-filters input[type="search"] { flex:1 1 220px; min-width: 0; max-width: 360px; padding:10px 12px; border-radius:12px; border:1px solid #e5e7eb; }
+.vf-filters select, .vf-filters input[type="number"] { padding:10px; border-radius:10px; border:1px solid #e5e7eb; min-width: 140px; }
 
+.actions { display: flex; align-items: center; justify-content: flex-end; flex: 0 0 auto; }
 .actions .btn-clear { background:transparent; border:1px solid #0f172a; padding:8px 12px; border-radius:10px; cursor:pointer; color:#0f172a; font-weight:600; }
 
 .recipes-list .found { margin-bottom:12px; color:#374151; }
-.grid { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
+.grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
 .recipe-card { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 6px 20px rgba(2,6,23,0.06); cursor:pointer; display:flex; flex-direction:column; height:100%; }
 .card-media { position:relative; height:180px; background:#000; }
@@ -132,22 +133,25 @@
   margin: 0;
   font-size: 1.05rem;
   font-weight: 700;
+  line-height: 1.25;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.8em; /* altura uniforme */
+  text-overflow: ellipsis;
+  max-height: 3em; /* 2 líneas a 1.25 line-height */
+  min-height: 2em;
 }
 
 /* Descripción con altura fija y line-clamp */
 .card-body .desc {
   color: #6b7280;
-  font-size: 0.95rem;
+  font-size: 1rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.6em;
+  min-height: 2em;
 }
 
 /* Meta */
@@ -514,6 +518,24 @@ body.vf-modal-open {
   .vf-modal-meta-cards {
     grid-template-columns: repeat(3,minmax(0,1fr));
   }
+
+  .recipes-page { padding: 16px; }
+  .recipes-header { text-align: center; }
+  .filters-wrapper { flex-direction: column; align-items: stretch; gap: 10px; }
+  .actions { width: 100%; justify-content: flex-start; }
+  .grid { grid-template-columns: 1fr; gap: 14px; }
+  .card-media { height: 170px; }
+  .fav-btn { padding: 5px 9px; font-size: 0.78rem; }
+}
+
+@media (max-width: 640px) {
+  .vf-filters { flex-direction: column; align-items: stretch; }
+  .vf-filters input[type="search"] { width: 100%; max-width: 100%; padding: 7px 10px; }
+  .vf-filters select, .vf-filters input[type="number"] { width: 100%; }
+  .grid { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+  .recipes-fab { right: 1.1rem; bottom: 1.1rem; width: 52px; height: 52px; font-size: 1.8rem; }
+  .card-media { height: 160px; }
+  .card-body { padding: 14px; }
 }
 
 /* Botón flotante (+) para crear receta (solo nutriólogo/admin) */

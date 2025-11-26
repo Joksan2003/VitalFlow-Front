@@ -141,7 +141,9 @@ export default function RecipeCard({
         )}
 
         {/* Título truncado */}
-        <h3 className="card-title">{recipe.title}</h3>
+        <h3 className="card-title" title={recipe.title}>
+          {recipe.title}
+        </h3>
 
         {/* Descripción con altura uniforme */}
         <p className="desc">{recipe.description}</p>

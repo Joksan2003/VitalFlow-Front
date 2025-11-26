@@ -34,10 +34,10 @@
 /* Contenedor de tarjetas (si no lo tienes) */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
-  margin-top: 18px;
-  
+  margin: 18px auto 0;
+  justify-items: center;
 }
 
 /* Tarjeta base */
@@ -197,7 +197,11 @@
 @media (max-width: 780px) {
   .card-img { height: 140px; }
   .card-body h3 { font-size: 1.25rem; }
-  .cards-grid { grid-template-columns: 1fr; }
+  .cards-grid { grid-template-columns: 1fr; max-width: 520px; margin: 18px auto 0; justify-items: center; }
+  .retos-container { padding: 18px; }
+  .retos-title { font-size: 32px; }
+  .trophies-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tabs { flex-wrap: wrap; justify-content: center; width: 100%; margin: 12px auto 20px; }
 }
 
 /* --------------------------

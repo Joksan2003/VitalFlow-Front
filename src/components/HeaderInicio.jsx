@@ -11,6 +11,8 @@ export default function HeaderInicio() {
   const [open, setOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef(null);
+  const navRef = useRef(null);
+  const burgerRef = useRef(null);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -25,6 +27,22 @@ export default function HeaderInicio() {
     document.addEventListener("click", onDoc);
     return () => document.removeEventListener("click", onDoc);
   }, []);
+
+  // Cierra menú de navegación al tocar fuera en mobile
+  useEffect(() => {
+    function handleOutside(e) {
+      if (!open) return;
+      const isNav = navRef.current?.contains(e.target);
+      const isBurger = burgerRef.current?.contains(e.target);
+      if (!isNav && !isBurger) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleOutside);
+    document.addEventListener("touchstart", handleOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleOutside);
+      document.removeEventListener("touchstart", handleOutside);
+    };
+  }, [open]);
 
   const handleOpenProfile = () => setProfileOpen((s) => !s);
 
@@ -68,7 +86,7 @@ export default function HeaderInicio() {
     <header className="vf-header">
       <div className="vf-header__left">VitalFlow</div>
 
-      <nav className={`vf-nav ${open ? "open" : ""}`}>
+      <nav ref={navRef} className={`vf-nav ${open ? "open" : ""}`}>
         <ul>
           {isPro ? (
             // 🔹 MENÚ PARA NUTRIÓLOGO Y ADMIN
@@ -78,6 +96,7 @@ export default function HeaderInicio() {
                   to="/pantalla-inicio"
                   end
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Inicio
                 </NavLink>
@@ -86,6 +105,7 @@ export default function HeaderInicio() {
                 <NavLink
                   to="/recetas"
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Recetas
                 </NavLink>
@@ -94,6 +114,7 @@ export default function HeaderInicio() {
                 <NavLink
                   to="/nutri/plans"
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Planes
                 </NavLink>
@@ -102,6 +123,7 @@ export default function HeaderInicio() {
                 <NavLink
                   to="/nutri/retos"
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Retos
                 </NavLink>
@@ -114,6 +136,7 @@ export default function HeaderInicio() {
                     <NavLink
                       to="/admin/usuarios"
                       className={({ isActive }) => (isActive ? "active" : "")}
+                      onClick={() => setOpen(false)}
                     >
                       Usuarios
                     </NavLink>
@@ -122,6 +145,7 @@ export default function HeaderInicio() {
                     <NavLink
                       to="/admin/solicitudes"
                       className={({ isActive }) => (isActive ? "active" : "")}
+                      onClick={() => setOpen(false)}
                     >
                       Solicitudes
                     </NavLink>
@@ -137,6 +161,7 @@ export default function HeaderInicio() {
                   to="/pantalla-inicio"
                   end
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Inicio
                 </NavLink>
@@ -145,6 +170,7 @@ export default function HeaderInicio() {
                 <NavLink
                   to="/recetas"
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Recetas
                 </NavLink>
@@ -153,6 +179,7 @@ export default function HeaderInicio() {
                 <NavLink
                   to="/mi-plan"
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Mi Plan
                 </NavLink>
@@ -161,6 +188,7 @@ export default function HeaderInicio() {
                 <NavLink
                   to="/retos"
                   className={({ isActive }) => (isActive ? "active" : "")}
+                  onClick={() => setOpen(false)}
                 >
                   Retos
                 </NavLink>
@@ -171,6 +199,7 @@ export default function HeaderInicio() {
                   className={({ isActive }) =>
                     `progreso-btn ${isActive ? "active" : ""}`
                   }
+                  onClick={() => setOpen(false)}
                 >
                   Progreso
                 </NavLink>
@@ -229,7 +258,12 @@ export default function HeaderInicio() {
           )}
         </div>
 
-        <button className="vf-burger" onClick={handleToggle} aria-label="menu">
+        <button
+          ref={burgerRef}
+          className="vf-burger"
+          onClick={handleToggle}
+          aria-label="menu"
+        >
           <span />
           <span />
           <span />

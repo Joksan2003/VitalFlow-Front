@@ -42,6 +42,15 @@ export default function CreateRecipeModalNutri({
 
   if (!token) return null;
 
+  // bloquear scroll de fondo mientras el modal está abierto
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev || "";
+    };
+  }, []);
+
   // ================== PREFILL CUANDO EDITAS ==================
   useEffect(() => {
     if (!initialRecipe) {
