@@ -753,3 +753,7 @@ button.tab.active {
     align-items: flex-start;
   }
 }
+
+.vf-modal.vf-modal-sm {
+  max-width: 420px;
+}

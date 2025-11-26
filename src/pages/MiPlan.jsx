@@ -26,6 +26,9 @@ export default function PlanAlimenticio() {
 
   const [favoriteIds, setFavoriteIds] = useState([]);
 
+  // NUEVO PARA MODAL GENERAR PLAN
+  const [planErrorMsg, setPlanErrorMsg] = useState("");
+
   // Helpers favoritos (localStorage)
   const loadFavorites = () => {
     try {
@@ -308,7 +311,13 @@ export default function PlanAlimenticio() {
       await fetchPlan();
     } catch (err) {
       console.error("Error generando plan:", err);
-      alert(err?.response?.data?.msg || "Error generando plan");
+
+      const msg =
+        err?.response?.data?.msg ||
+        "Ocurrió un error al generar tu plan. Inténtalo más tarde.";
+
+      // 🔹 En vez de alert, guardamos el mensaje para mostrar el modal
+      setPlanErrorMsg(msg);
     } finally {
       setLoading(false);
     }
@@ -395,7 +404,7 @@ export default function PlanAlimenticio() {
   }
 
   if (loading) {
-    return <p className="text-center mt-10">Cargando...</p>;
+    return <p className="text-center mt-10">Cargando tu plan con IA esto puede tardar algunos segundos...</p>;
   }
 
   return (
@@ -650,6 +659,46 @@ export default function PlanAlimenticio() {
           onClose={() => setSelectedRecipe(null)}
         />
       )}
+            {/* Modal para avisos al generar plan (ej: solo 1 cada 7 días) */}
+      {planErrorMsg && (
+        <div
+          className="vf-modal-overlay"
+          onClick={() => setPlanErrorMsg("")}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="vf-modal vf-modal-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className="vf-modal-header">
+              <h3>Información sobre tu plan</h3>
+              <button
+                className="vf-modal-close"
+                onClick={() => setPlanErrorMsg("")}
+                aria-label="Cerrar"
+              >
+                ✕
+              </button>
+            </header>
+
+            <div className="vf-modal-body">
+              <p>{planErrorMsg}</p>
+            </div>
+
+            <footer className="vf-modal-footer">
+              <button
+                className="vf-btn"
+                onClick={() => setPlanErrorMsg("")}
+              >
+                Entendido
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
+
+      
     </main>
   );
 }
